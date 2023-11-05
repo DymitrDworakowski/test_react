@@ -10,6 +10,7 @@ const PhoneBook = ({ handleSubmit, handleChangeInput }) => {
         Add contct
       </button>
     </form>
+    
   );
 };
 
