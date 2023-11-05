@@ -39,12 +39,16 @@ class App extends Component {
     evt.preventDefault();
 
     const { contacts, name, number } = this.state;
-
+    if (contacts.some((contact) => contact.name === name)) {
+      alert( `${name} is already in the contact list` );
+      return; // Перервати виконання функції, якщо ім'я вже існує
+    }
     const newContact = {
       id: nanoid(),
       name: name,
       number: number,
     };
+
 
     // Копіюємо поточний масив контактів і додаємо до нього новий контакт
     const newContacts = [...contacts, newContact];
@@ -58,8 +62,10 @@ class App extends Component {
 
   render() {
     const { contacts, filter } = this.state;
-    const filteredContacts = contacts.filter((contact) =>
-      contact.name.toLowerCase().includes(filter.toLowerCase()) // фільтрація 
+    const filteredContacts = contacts.filter(
+      (contact) =>
+        contact.name.toLowerCase().includes(filter.toLowerCase()) ||
+        contact.number.toLowerCase().includes(filter.toLowerCase()) // Фільтрація 
     );
     return (
       <div>
@@ -74,7 +80,8 @@ class App extends Component {
             value={filter}
             onChange={this.handleFilter} />
         </div>
-        {filteredContacts.map((contact) => (
+        {
+        filteredContacts.map((contact) => (
           <Contacts key={contact.id} contact={contact} />
         ))}
       </div>

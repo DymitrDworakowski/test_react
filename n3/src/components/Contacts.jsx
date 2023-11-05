@@ -3,7 +3,6 @@ const Contacts = ({ contact }) => {
   return (
    
     <ul>
-      
       <li>
         {contact.name} : {contact.number}
       </li>
