@@ -60,6 +60,7 @@ class Feedback extends Component {
         <button type="button" onClick={this.heandleNeu}>
           Neutral
         </button>
+        
         <button type="button" onClick={this.heandleBad}>
           Bad
         </button>
