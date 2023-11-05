@@ -11,17 +11,25 @@ class App extends Component {
     number: "",
   };
 
+  // handleChangeName = (evt) => {
+  //   console.log({ name:evt.target.value  });
+
+  //   this.setState({ name:evt.target.value} );
+  // };
+  // handleChangeNumber = (evt) => {
+  //   console.log({ number:evt.target.value  });
+
+  //   this.setState({ number:evt.target.value} );
+  // };
+
+
+  handleChangeInput = (evt) =>{
+    this.setState({[evt.target.name]:evt.target.value});
+  }
+
   handleSubmit = (evt) => {
     evt.preventDefault();
-    const form = evt.currentTarget;
-    const name = form.elements.name.value;
-    const number = form.elements.number.value;
-    console.log(name, number);
-    this.setState({ name, number });
-    form.reset();
-  };
-
-  addContact = () => {
+    
     const { contacts, name, number } = this.state;
 
     const newContact = {
@@ -38,17 +46,17 @@ class App extends Component {
       name: "",
       number: "",
     });
+    
   };
 
   render() {
-    const { contacts, name, number } = this.state;
+    const { contacts, } = this.state;
     return (
       <div>
         <PhoneBook
-          name={name}
-          number={number}
-          eventTargetInput={this.handleSubmit}
-          onClick={this.addContact}
+          handleSubmit={this.handleSubmit}
+          handleChangeInput ={this.handleChangeInput}
+          
         />
 
         {contacts.map((contact) => (
