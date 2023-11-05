@@ -11,7 +11,7 @@ class App extends Component {
     number: "",
   };
 
-  handleChange = (evt) => {
+  handleSubmit = (evt) => {
     evt.preventDefault();
     const form = evt.currentTarget;
     const name = form.elements.name.value;
