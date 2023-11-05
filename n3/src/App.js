@@ -11,10 +11,16 @@ class App extends Component {
     number: "",
   };
 
-  eventTargetInput = (event) => {
-    console.log(event.target.value);
-    this.setState({ name: event.target.value, number: event.target.value });
+  handleChange = (evt) => {
+    evt.preventDefault();
+    const form = evt.currentTarget;
+    const name = form.elements.name.value;
+    const number = form.elements.number.value;
+    console.log(name, number);
+    this.setState({ name, number });
+    form.reset();
   };
+
   addContact = () => {
     const { contacts, name, number } = this.state;
 
@@ -35,12 +41,13 @@ class App extends Component {
   };
 
   render() {
-    const { contacts, name } = this.state;
+    const { contacts, name, number } = this.state;
     return (
       <div>
         <PhoneBook
           name={name}
-          eventTargetInput={this.eventTargetInput}
+          number={number}
+          eventTargetInput={this.handleSubmit}
           onClick={this.addContact}
         />
 

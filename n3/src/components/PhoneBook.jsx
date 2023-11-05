@@ -1,29 +1,30 @@
-const PhoneBook = ({ onClick, eventTargetInput }) => {
+const PhoneBook = ({ onClick, handleSubmit }) => {
   return (
-    <div>
+    <form onChange={handleSubmit}>
       <h1>PhoneBook</h1>
       <p>Name</p>
-      <input
-        type="text"
-        name="name"
-        required
-        onChange={eventTargetInput}
-        placeholder="name."
-      />
-
-      <h1>Number</h1>
-      <input
-        type="tel"
-        name="number"
-        required
-        placeholder="tel."
-        onChange={eventTargetInput}
-      />
+      <input type="text" name="name" required placeholder="name." />
+      <p>Number</p>
+      <input type="tel" name="number" required placeholder="tel." />
       <button type="button" onClick={onClick}>
         Add contct
       </button>
-    </div>
+    </form>
   );
 };
+// import { Component } from "react";
+
+// class PhoneBook extends Component {
+
+//   render() {
+//     return (
+//       <form onSubmit={this.handleSubmit}>
+//         <input type="text" name="name" />
+//         <input type="tel" name="number" />
+//         <button type="submit">Login</button>
+//       </form>
+//     );
+//   }
+// }
 
 export default PhoneBook;
