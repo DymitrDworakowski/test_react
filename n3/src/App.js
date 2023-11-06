@@ -1,8 +1,9 @@
 import { Component } from "react";
 import "./App.css";
-import PhoneBook from "./components/PhoneBook";
-import Contacts from "./components/Contacts";
-import { nanoid } from "nanoid";
+import ContactForm from "./components/ContactForm";
+import ContactsList from "./components/ContactsList";
+import Filter from "./components/Filter";
+
 
 class App extends Component {
   state = {
@@ -13,8 +14,7 @@ class App extends Component {
       { id: "id-4", name: "Annie Copeland", number: "227-91-26" },
     ],
     filter: "",
-    name: "",
-    number: "",
+    
   };
 
   // handleChangeName = (evt) => {
@@ -28,38 +28,25 @@ class App extends Component {
   //   this.setState({ number:evt.target.value} );
   // };
 
-  handleChangeInput = (evt) => {
-    this.setState({ [evt.target.name]: evt.target.value });
+addContact = (newContact) => {
+  this.setState((prevState) => ({
+    contacts: [...prevState.contacts, newContact],
+  }));
   };
+  
   handleFilter = (evt) => {
     this.setState({ filter: evt.target.value }); // Оновлюємо значення фільтра
   };
 
-  handleSubmit = (evt) => {
-    evt.preventDefault();
+ handleDelete = (id) => {
+  const { contacts } = this.state;
 
-    const { contacts, name, number } = this.state;
-    if (contacts.some((contact) => contact.name === name)) {
-      alert( `${name} is already in the contact list` );
-      return; // Перервати виконання функції, якщо ім'я вже існує
-    }
-    const newContact = {
-      id: nanoid(),
-      name: name,
-      number: number,
-    };
+  // Використовуємо метод filter для створення нового масиву, який не містить контакт з вказаним id
+  const updatedContacts = contacts.filter((contact) => contact.id !== id);
 
-
-    // Копіюємо поточний масив контактів і додаємо до нього новий контакт
-    const newContacts = [...contacts, newContact];
-
-    this.setState({
-      contacts: newContacts,
-      name: "",
-      number: "",
-    });
+  this.setState({ contacts: updatedContacts });
   };
-
+  
   render() {
     const { contacts, filter } = this.state;
     const filteredContacts = contacts.filter(
@@ -69,20 +56,15 @@ class App extends Component {
     );
     return (
       <div>
-        <PhoneBook
-          handleSubmit={this.handleSubmit}
-          handleChangeInput={this.handleChangeInput}
+        <h1>Phonebook</h1>
+        <ContactForm
+          contacts={contacts} onAddContact={this.addContact}
+          
         />
-        <div>
-          <h1>Contacts</h1>
-          <p>Find contact by name</p>
-          <input  type="text"
-            value={filter}
-            onChange={this.handleFilter} />
-        </div>
-        {
-        filteredContacts.map((contact) => (
-          <Contacts key={contact.id} contact={contact} />
+          <h2>Contacts</h2>
+        <Filter handleFilter ={this.handleFilter} />
+        {filteredContacts.map((contact) => (
+          <ContactsList key={contact.id} contact={contact} handleDelete={() => this.handleDelete(contact.id)} />
         ))}
       </div>
     );
@@ -90,3 +72,4 @@ class App extends Component {
 }
 
 export default App;
+
