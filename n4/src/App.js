@@ -15,7 +15,7 @@ class App extends Component {
     evt.preventDefault();
     const form = evt.currentTarget;
     const search = form.elements.search.value;
-    console.log(search);
+
     // this.props.onSubmit({ search });
     form.reset();
   };
@@ -23,8 +23,9 @@ class App extends Component {
   async componentDidMount() {
     this.setState({ isLoading: true });
 
-    const images = await fetchImg();
-    console.log(images);
+    const response = await fetchImg();
+    console.log(response);
+    this.setState({ images: response });
   }
 
   render() {
@@ -32,10 +33,8 @@ class App extends Component {
     return (
       <div className="App">
         <Searchbar onSubmit={this.onSubmit} />
-        <div>
-          isLoading ? <p>Loading...</p> :
-          <ImageGallery />
-        </div>
+
+        <ImageGallery images={images} />
       </div>
     );
   }
