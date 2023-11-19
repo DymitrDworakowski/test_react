@@ -1,11 +1,10 @@
 const ImageGallery = ({ images }) => {
   return (
     <ul>
-      {images.map(({ id, pageURL, user }) => (
+      {images.map(({ id, previewURL, user }) => (
         <li key={id}>
-          <a href={pageURL} target="_blank" rel="noreferrer noopener">
-            {user}
-          </a>
+          <img src={previewURL} alt="" />
+          <p>{user}</p>
         </li>
       ))}
     </ul>
