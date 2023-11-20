@@ -4,6 +4,7 @@ import Searchbar from "./components/Searchbar";
 import { Component } from "react";
 import { fetchImg } from "./api/img";
 import Loader from './components/Loader';
+import Button from "./components/Button";
 
 class App extends Component {
   state = {
@@ -62,8 +63,10 @@ onSubmit = async (evt) => {
         <Searchbar onSubmit={this.onSubmit} />
         {error && <p>Whoops, something went wrong: {error.message}</p>}
         {isLoading && <Loader/>}
-       {images !== null && images.length > 0 && <ImageGallery images={images}/>}
+        {images !== null && images.length > 0 && <ImageGallery images={images} />}
+        <Button/>
       </div>
+      
     );
   }
 }

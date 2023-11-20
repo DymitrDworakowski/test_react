@@ -1,3 +1,5 @@
+import "./SearchBar.css";
+
 const Searchbar = ({ onSubmit }) => {
   return (
     <header className="searchbar">
