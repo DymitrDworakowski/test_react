@@ -19,7 +19,7 @@ class App extends Component {
     if (
       prevState.page !== this.state.page ||
       prevState.search !== this.state.search ||
-      prevState.images !== null
+      prevState.images !== null // Такий підхід допомагає уникнути непотрібних запитів при наявності старих зображень.
     ) {
       if (this.state.search.trim() !== "") {
         this.fetchImages();
