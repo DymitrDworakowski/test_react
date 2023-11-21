@@ -40,7 +40,7 @@ class App extends Component {
       return alert("Input is empty");
     }
     evt.preventDefault();
-    this.setState({ page: 1, search, images: []}); // Скидаємо сторінку та зберігаємо значення пошуку
+    this.setState({ page: 1, search, images: null}); // Скидаємо сторінку та зберігаємо значення пошуку
     this.fetchImages(); // Не передаємо search як аргумент, оскільки воно вже встановлено в стані
 
     form.reset();
