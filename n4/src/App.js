@@ -8,7 +8,7 @@ import Button from "./components/Button";
 
 class App extends Component {
   state = {
-    images: [],
+    images: [] ,
     isLoading: false,
     error: null,
     page: 1,
@@ -18,9 +18,9 @@ class App extends Component {
     // Перевірка, чи сторінка або search змінилися, і виклик fetchImg лише при зміні
     if (
       prevState.page !== this.state.page ||
-      prevState.search !== this.state.search ||
-      prevState.images !== null // Такий підхід допомагає уникнути непотрібних запитів при наявності старих зображень.
-    ) {
+      prevState.search !== this.state.search 
+    ) { 
+     
       if (this.state.search.trim() !== "") {
         this.fetchImages();
       }
@@ -37,22 +37,24 @@ class App extends Component {
     const form = evt.currentTarget;
     const search = form.elements.search.value;
     if (search === "") {
-      return alert("Input is empty");
+      alert("Input is empty");
+      return
     }
     evt.preventDefault();
-    this.setState({ page: 1, search, images: null}); // Скидаємо сторінку та зберігаємо значення пошуку
-    this.fetchImages(); // Не передаємо search як аргумент, оскільки воно вже встановлено в стані
+    this.setState({ page: 1, search, images: [] }); // Скидаємо сторінку та зберігаємо значення пошуку
+ 
 
     form.reset();
   };
+
 fetchImages = async () => {
   const { search, page } = this.state;
 
   try {
-    this.setState({ isLoading: true, images: null }); // Зброєння images на початку запиту
+    this.setState({ isLoading: true });
     const response = await fetchImg({ search, page });
     this.setState((prevState) => ({
-      images: prevState.images ? [...prevState.images, ...response] : response,
+      images: [...prevState.images, ...response],
     }));
   } catch (error) {
     this.setState({ error });
