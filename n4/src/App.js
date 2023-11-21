@@ -8,17 +8,22 @@ import Button from "./components/Button";
 
 class App extends Component {
   state = {
-    images: null,
+    images: [],
     isLoading: false,
     error: null,
     page: 1,
   };
 
-
-   componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(prevProps, prevState) {
     // Перевірка, чи сторінка або search змінилися, і виклик fetchImg лише при зміні
-    if (prevState.page !== this.state.page || prevState.search !== this.state.search) {
-      this.fetchImages();
+    if (
+      prevState.page !== this.state.page ||
+      prevState.search !== this.state.search ||
+      prevState.images !== null
+    ) {
+      if (this.state.search.trim() !== "") {
+        this.fetchImages();
+      }
     }
   }
 
@@ -28,35 +33,33 @@ class App extends Component {
     }));
   };
 
-   onSubmit = async (evt) => {
+  onSubmit = async (evt) => {
     const form = evt.currentTarget;
     const search = form.elements.search.value;
+    if (search === "") {
+      return alert("Input is empty");
+    }
     evt.preventDefault();
-    this.setState({ page: 1, search }); // Скидаємо сторінку та зберігаємо значення пошуку
+    this.setState({ page: 1, search, images: []}); // Скидаємо сторінку та зберігаємо значення пошуку
     this.fetchImages(); // Не передаємо search як аргумент, оскільки воно вже встановлено в стані
 
     form.reset();
   };
+fetchImages = async () => {
+  const { search, page } = this.state;
 
-
-  fetchImages = async () => {
-    const { search, page } = this.state;
-
-    try {
-      this.setState({ isLoading: true });
-      const response = await fetchImg({ search, page });
-      this.setState((prevState) => ({
-        images: prevState.images ? [...prevState.images, ...response] : response,
-      }));
-    } catch (error) {
-      this.setState({ error });
-    } finally {
-      this.setState({ isLoading: false });
-    }
-  };
-
- 
-
+  try {
+    this.setState({ isLoading: true, images: null }); // Зброєння images на початку запиту
+    const response = await fetchImg({ search, page });
+    this.setState((prevState) => ({
+      images: prevState.images ? [...prevState.images, ...response] : response,
+    }));
+  } catch (error) {
+    this.setState({ error });
+  } finally {
+    this.setState({ isLoading: false });
+  }
+};
 
   render() {
     const { images, isLoading, error } = this.state;
@@ -65,9 +68,7 @@ class App extends Component {
         <Searchbar onSubmit={this.onSubmit} />
         {error && <p>Whoops, something went wrong: {error.message}</p>}
         {isLoading && <Loader />}
-        {images !== null && images.length > 0 && (
-          <ImageGallery images={images} />
-        )}
+        {images !== null && <ImageGallery images={images} />}
         <Button onClick={this.handleClick} />
       </div>
     );
