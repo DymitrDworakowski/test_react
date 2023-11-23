@@ -12,6 +12,7 @@ class App extends Component {
     isLoading: false,
     error: null,
     page: 1,
+    hasMoreImages: false,
   };
 
   componentDidUpdate(prevProps, prevState) {
@@ -53,25 +54,34 @@ fetchImages = async () => {
   try {
     this.setState({ isLoading: true });
     const response = await fetchImg({ search, page });
-    this.setState((prevState) => ({
-      images: [...prevState.images, ...response],
-    }));
-  } catch (error) {
-    this.setState({ error });
-  } finally {
-    this.setState({ isLoading: false });
-  }
+  if (response.length > 0) {
+        this.setState((prevState) => ({
+          images: [...prevState.images, ...response],
+          hasMoreImages: true,
+        }));
+      } else {
+        this.setState({ hasMoreImages: false });
+      }
+    } catch (error) {
+      this.setState({ error, hasMoreImages: false });
+    } finally {
+      this.setState({ isLoading: false });
+    }
 };
 
   render() {
-    const { images, isLoading, error } = this.state;
+    const { images, isLoading, error,hasMoreImages } = this.state;
     return (
       <div className="App">
         <Searchbar onSubmit={this.onSubmit} />
         {error && <p>Whoops, something went wrong: {error.message}</p>}
         {isLoading && <Loader />}
         {images !== null && <ImageGallery images={images} />}
-        <Button onClick={this.handleClick} />
+        {hasMoreImages ? (
+  <Button onClick={this.handleClick} />
+) : (
+  <p>No more images to load.</p>
+)}
       </div>
     );
   }
