@@ -1,7 +1,8 @@
-const Button = ({onClick}) => {
+import './Button.css';
+const Button = ({ onClick }) => {
     return (
         <div>
-            <button type="button" onClick={onClick}>Load more</button>
+            <button className='load' type="button" onClick={onClick}>Load more</button>
         </div>
     )
 }

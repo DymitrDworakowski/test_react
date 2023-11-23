@@ -1,5 +1,8 @@
+
 import React, { Component } from 'react';
 import Modal from './Modal';
+import './ImageGallery.css';
+import ImageGalleryItem from './ImageGalleryItem';
 
 class ImageGallery extends Component {
   constructor(props) {
@@ -22,19 +25,18 @@ class ImageGallery extends Component {
     const { selectedImageId } = this.state;
 
     return (
-      <ul>
-        {images.map(({ id, webformatURL, tags, largeImageURL }) => (
-          <li key={id} onClick={() => this.openModal(id)}>
-            <img src={webformatURL} alt={tags} />
-          </li>
-        ))}
-        {selectedImageId && (
+      
+      <div className='imgGal'>
+        <ImageGalleryItem images={images} openModal={this.openModal} />
+          {selectedImageId && (
           <Modal
             largeImageURL={images.find((image) => image.id === selectedImageId)?.largeImageURL}
             onClose={this.closeModal}
           />
         )}
-      </ul> 
+        
+      </div> 
+     
     );
   }
 }
