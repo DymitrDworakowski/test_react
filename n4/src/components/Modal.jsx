@@ -6,6 +6,12 @@ class Modal extends Component {
   componentDidMount() {
     this.openModal();
   }
+   
+  handleKeyDown = event => {
+    if (event.code === 'Escape') {
+      this.props.onClose(); // Закрываем модальное окно при нажатии клавиши Escape
+    }
+  };
 
   openModal() {
     const { largeImageURL, onClose } = this.props;
