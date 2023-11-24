@@ -1,62 +1,43 @@
-import React, { Component } from 'react';
-import './ImageGalleryItem.css';
-import Modal from './Modal';
+import React, { Component } from "react";
+import "./ImageGalleryItem.css";
+import Modal from "./Modal";
 
-
-class ImageGalleryItem extends Component{
-
+class ImageGalleryItem extends Component {
   state = {
     openModal: false,
-}
+  };
 
   openModal = () => {
     this.setState({ openModal: true });
   };
 
   closeModal = (e) => {
-    if (e.currentTarget === e.target) {
-       this.setState({ openModal: false }); // Закрываем модальное окно при клике на фон
-     }
-    
+    this.setState({ openModal: false }); // Закрываем модальное окно при клике на фон
   };
 
+  render() {
+    const { webformatURL, tags, largeImageURL } = this.props;
+    const { openModal } = this.state;
+    return (
+      <ul className="gallery">
+        <li className="gallery-item" onClick={this.openModal}>
+          <img src={webformatURL} alt={tags} className="gallery-image" />
+        </li>
 
-render() {
-  const { webformatURL,tags,largeImageURL } = this.props;
-  const { openModal } = this.state;
-  return (
-
-    <ul className="gallery">
-   
-     <li className="gallery-item" onClick={this.openModal}>
-        <img src={webformatURL} alt={tags} className="gallery-image" />
-      </li>
- 
-    {openModal && (
-        <Modal
-          openModal={openModal}
-          largeImageURL={largeImageURL}
-          tags={tags}
-        onClose={this.closeModal}
-      />
-    )}
-  </ul>
-
-
-  )
+        {openModal && (
+          <Modal
+            openModal={openModal}
+            largeImageURL={largeImageURL}
+            tags={tags}
+            onClose={this.closeModal}
+          />
+        )}
+      </ul>
+    );
+  }
 }
-
-}
-
-
-
-
-
-
 
 export default ImageGalleryItem;
-
-
 
 // const ImageGalleryItem = ({ images, openModal }) => (
 //   <ul className="gallery">
