@@ -1,69 +1,63 @@
-// const ContactForm = ({ handleSubmit, handleChangeInput }) => {
-//   return (
-//     <form onSubmit={handleSubmit}>
-//       <p>Name</p>
-//       <input type="text" name="name"  required placeholder="name." onChange={handleChangeInput}/>
-//       <p>Number</p>
-//       <input type="tel" name="number"  required placeholder="tel." onChange={handleChangeInput} />
-//       <button type="submit" >
-//         Add contct
-//       </button>
-//     </form>
-    
-//   );
-// };
 
-// export default ContactForm;
-import { Component } from "react";
 import { nanoid } from "nanoid"; // Імпорт nanoid
+import { useState } from "react";
 
-class ContactForm extends Component {
-  state = {
+const ContactForm = ({ contacts, onAddContact }) => {
+  
+   const [formData, setFormData] = useState({
     name: "",
     number: "",
-  };
-
-  handleSubmit = (evt) => {
+   });
+  
+  
+  const handleSubmit = (evt) => {
     evt.preventDefault();
 
-    const { name, number } = this.state;
-    const { contacts, onAddContact } = this.props; // Отримайте функцію onAddContact через props
+   
+    // Отримайте функцію onAddContact через props
 
-    if (contacts.some((contact) => contact.name === name)) {
-      alert(`${name} is already in the contact list`);
+    if (contacts.some((contact) => contact.name === formData.name)) {
+      alert(`${formData.name} is already in the contact list`);
       return;
     }
 
     const newContact = {
       id: nanoid(),
-      name: name,
-      number: number,
+      name: formData.name,
+      number: formData.number,
     };
 
     onAddContact(newContact); // Викликайте onAddContact, якщо контакт додано
 
-    this.setState({
+    setFormData({
       name: "",
       number: "",
     });
   };
+  
+const handleChangeInput = (evt) => {
+  // Деструктуризація подій для отримання name та value зі змінної target
+  const { name, value } = evt.target;
 
-  handleChangeInput = (evt) => {
-    this.setState({ [evt.target.name]: evt.target.value });
-  };
+  // Використовуємо setFormData для оновлення стану
+  setFormData((prevData) => ({
+    // Використовуємо розпросторення для копіювання попереднього стану
+    ...prevData,
+    // Оновлюємо значення відповідного поля (name) з новим значенням (value)
+    [name]: value,
+  }));
+};
 
-  render() {
-    const { name, number } = this.state;
     return (
-      <form onSubmit={this.handleSubmit}>
+      <form onSubmit={handleSubmit}>
         <p>Name</p>
         <input
           type="text"
           name="name"
           required
           placeholder="Name"
-          value={name}
-          onChange={this.handleChangeInput}
+          value={formData.name}
+          onChange={handleChangeInput}
         />
         <p>Number</p>
         <input
@@ -71,13 +65,13 @@ class ContactForm extends Component {
           name="number"
           required
           placeholder="Number"
-          value={number}
-          onChange={this.handleChangeInput}
+          value={formData.number}
+          onChange={handleChangeInput}
         />
         <button type="submit">Add contact</button>
       </form>
     );
-  }
+  
 }
 
 export default ContactForm;
