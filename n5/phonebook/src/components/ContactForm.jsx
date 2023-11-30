@@ -7,6 +7,9 @@ const ContactForm = ({ contacts, onAddContact }) => {
     number: "",
   });
 
+
+
+
   const handleSubmit = (evt) => {
     evt.preventDefault();
 

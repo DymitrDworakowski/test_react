@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import "./App.css";
 import ContactForm from "./components/ContactForm";
 import ContactsList from "./components/ContactsList";
@@ -12,6 +12,22 @@ const App = () => {
     { id: "id-4", name: "Annie Copeland", number: "227-91-26" },
   ]);
   const [filter, setFilter] = useState("");
+
+
+// Завантаження даних з localStorage при монтуванні компонента
+    useEffect(() => {
+    const storedData = localStorage.getItem('contacts');
+    if (storedData) {
+      setContacts(JSON.parse(storedData));
+    }
+    }, []);
+  
+    
+ // Збереження даних у localStorage при зміні масиву contacts
+  useEffect(() => {
+    localStorage.setItem('contacts', JSON.stringify(contacts));
+  }, [contacts]);
+
 
   const addContact = (newContact) => {
     setContacts((prevState) => [...prevState, newContact]);
