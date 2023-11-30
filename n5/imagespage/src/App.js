@@ -1,40 +1,43 @@
 import "./App.css";
 import ImageGallery from "./components/ImageGallery";
 import Searchbar from "./components/Searchbar";
-import { Component } from "react";
+import { Component, useState } from "react";
 import { fetchImg } from "./api/img";
 import Loader from "./components/Loader";
 import Button from "./components/Button";
 
-class App extends Component {
-  state = {
-    images: [] ,
-    isLoading: false,
-    error: null,
-    page: 1,
-    hasMoreImages: false,
-  };
+const App = () => {
+  
+  const [images, setImages] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [page, setPage] = useState(1);
+  const [hasMoreImages, setHasMoreImages] = useState(false);
 
-  componentDidUpdate(prevProps, prevState) {
-    // Перевірка, чи сторінка або search змінилися, і виклик fetchImg лише при зміні
+ 
+  
+useEffect((prevProps, prevState) => {
     if (
-      prevState.page !== this.state.page ||
-      prevState.search !== this.state.search 
+      prevState.page !== page ||
+      prevState.search !== search 
     ) { 
      
       if (this.state.search.trim() !== "") {
         this.fetchImages();
       }
     }
-  }
+  
+  }, [userData]);
 
-  handleClick = () => {
-    this.setState((prevState) => ({
-      page: prevState.page + 1,
-    }));
+
+
+
+  const handleClick = () => {
+    setPage((prevState) => ( prevState.page + 1,
+    ));
   };
 
-  onSubmit = async (evt) => {
+  const onSubmit = async (evt) => {
     const form = evt.currentTarget;
     const search = form.elements.search.value;
     if (search === "") {
@@ -49,7 +52,7 @@ class App extends Component {
   };
 
 fetchImages = async () => {
-  const { search, page } = this.state;
+  
 
   try {
     this.setState({ isLoading: true });
@@ -69,22 +72,21 @@ fetchImages = async () => {
     }
 };
 
-  render() {
-    const { images, isLoading, error,hasMoreImages } = this.state;
+   
     return (
       <div className="App">
-        <Searchbar onSubmit={this.onSubmit} />
+        <Searchbar onSubmit={onSubmit} />
         {error && <p>Whoops, something went wrong: {error.message}</p>}
         {isLoading && <Loader />}
         {images !== null && <ImageGallery images={images} />}
         {hasMoreImages ? (
-  <Button onClick={this.handleClick} />
+  <Button onClick={handleClick} />
 ) : (
   <p>No more images to load.</p>
 )}
       </div>
     );
-  }
+  
 }
 
 export default App;
