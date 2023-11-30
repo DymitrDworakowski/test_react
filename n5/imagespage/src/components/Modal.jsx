@@ -1,23 +1,10 @@
-import { Component } from "react";
+
 import './Modal.css';
 import Rodal from 'rodal';
 import 'rodal/lib/rodal.css';
 
-class Modal extends Component {
+const Modal =({ largeImageURL,tags,openModal,onClose })=> {
 
-
-
-
-  handleKeyDown = (event) => {
-    if (event.code === "Escape") { 
-      this.props.onClose();
-    }
-  };
-
-
-  render() {
-   
-const { largeImageURL,tags,openModal,onClose } = this.props;
     return (
       <div className="overlay" >
         
@@ -33,7 +20,7 @@ const { largeImageURL,tags,openModal,onClose } = this.props;
         
       </div>
     );
-  }
+  
 }
 
 export default Modal;

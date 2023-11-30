@@ -1,56 +1,38 @@
-import React, { Component } from "react";
+import  { useState } from "react";
 import "./ImageGalleryItem.css";
 import Modal from "./Modal";
 
-class ImageGalleryItem extends Component {
-  state = {
-    openModal: false,
+const  ImageGalleryItem =({ webformatURL, tags, largeImageURL })=> {
+
+  const [statusModal, setstatusModal] = useState(false);
+ 
+
+  const openModal = () => {
+    setstatusModal(true);
   };
 
-  openModal = () => {
-    this.setState({ openModal: true });
+  const closeModal = () => {
+    setstatusModal(false); 
   };
 
-  closeModal = (e) => {
-    this.setState({ openModal: false }); // Закрываем модальное окно при клике на фон
-  };
 
-  render() {
-    const { webformatURL, tags, largeImageURL } = this.props;
-    const { openModal } = this.state;
     return (
       <ul className="gallery">
-        <li className="gallery-item" onClick={this.openModal}>
+        <li className="gallery-item" onClick={openModal}>
           <img src={webformatURL} alt={tags} className="gallery-image" />
         </li>
 
-        {openModal && (
+        {statusModal && (
           <Modal
-            openModal={openModal}
+            openModal={statusModal}
             largeImageURL={largeImageURL}
             tags={tags}
-            onClose={this.closeModal}
+            onClose={closeModal}
           />
         )}
       </ul>
     );
-  }
+  
 }
 
 export default ImageGalleryItem;
-
-// const ImageGalleryItem = ({ images, openModal }) => (
-//   <ul className="gallery">
-//     {images.map(({ id, webformatURL, tags,}) => (
-//       <li key={id} className="gallery-item" >
-//         <img src={webformatURL} alt={tags} className="gallery-image" />
-//       </li>
-//     ))}
-//     {openModal && (
-//       <Modal
-//         largeImageURL={images.find((image) => image.id === openModal)?.largeImageURL}
-//         onClose={this.closeModal}
-//       />
-//     )}
-//   </ul>
-// );
