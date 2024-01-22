@@ -42,21 +42,6 @@ const App = () => {
     setPage((prevPage) => prevPage + 1);
   };
 
-  // Код без використання useRef
-  // const onSubmit = (evt) => {
-  //   const form = evt.currentTarget;
-  //   const searchTerm = form.elements.search.value;
-  //   if (searchTerm === "") {
-  //     alert("Input is empty");
-  //     return;
-  //   }
-  //   evt.preventDefault();
-  //   setPage(1);
-  //   setSearch(searchTerm);
-  //   setImages([]);
-  //   form.reset();
-  // };
-
   const onSubmit = (searchTerm) => {
     if (searchTerm.trim() === "") {
       alert("Input is empty");
@@ -65,7 +50,6 @@ const App = () => {
     setPage(1);
     setSearch(searchTerm);
     setImages([]);
-    
   };
 
   return (
