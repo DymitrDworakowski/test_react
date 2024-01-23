@@ -6,7 +6,7 @@ const Movies = ({ onSubmit }) => {
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-      const searchItem = formRef.current.elements.search.value;
+      const searchItem = formRef.current.elements.searchText.value;
       console.log(searchItem)
     onSubmit(searchItem);
     formRef.current.reset();
@@ -17,7 +17,7 @@ const Movies = ({ onSubmit }) => {
     <form ref={formRef} className="form" onSubmit={handleSubmit}>
       <input
         className="input"
-        name="search"
+        name="searchText"
         type="text"
         autoComplete="off"
         autoFocus
