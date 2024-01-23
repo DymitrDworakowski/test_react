@@ -1,10 +1,16 @@
 // компонент Cast, інформація про акторський склад. Рендериться на сторінці MovieDetails.
 
-const Cast = () => {
+const Cast = ({movies}) => {
   return (
-    <div>
-      <h1>JJ</h1>
-    </div>
+    <ul>
+      {movies.map((movie) => (
+        <li key={movie.id}>
+          <h3>{movie.release_date
+}</h3>
+          
+        </li>
+      ))}
+    </ul>
   );
 };
 
