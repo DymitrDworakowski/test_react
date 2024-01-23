@@ -21,7 +21,7 @@ function App() {
     try {
       setIsLoading(true);
       const response = await fetchMovies();
-      console.log(response)
+  
       if (response.length > 0) {
         setMovies(() => [ ...response]);
       }
@@ -37,12 +37,14 @@ function App() {
     getMovies();
   }, [getMovies]); // Передаємо порожній масив, щоб визначити, що ефект повинен викликатися лише при монтуванні компонента
   
+
+
  
   return (
     <div >
       <Header />
-      <Movies/>
-      <MovieDetails movies={movies}/>
+      <Movies />
+      <MovieDetails />
       <Home movies={movies} isLoading={isLoading} error={error} />
       <Footer/>
     </div>

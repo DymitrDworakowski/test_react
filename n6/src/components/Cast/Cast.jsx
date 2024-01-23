@@ -3,13 +3,7 @@
 const Cast = ({movies}) => {
   return (
     <ul>
-      {movies.map((movie) => (
-        <li key={movie.id}>
-          <h3>{movie.release_date
-}</h3>
-          
-        </li>
-      ))}
+ 
     </ul>
   );
 };

@@ -1,8 +1,11 @@
 //компонент Movies, сторінка пошуку кінофільмів за ключовим словом.
-import React, { useRef } from "react";
+import React, { useCallback,useRef,useEffect,useState } from "react";
+import getByNameMovies from '../../api/searchMovies';
 
-const Movies = ({ onSubmit }) => {
-  const formRef = useRef(null);
+const Movies = () => {
+    const formRef = useRef(null);
+    const [movie, setMovie ]= useState([]);
+    const [ query, setQuery ] = useState('');
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
@@ -12,8 +15,35 @@ const Movies = ({ onSubmit }) => {
     formRef.current.reset();
   };
 
+    const getByName = useCallback(async () => {
+    try {
+      
+      const response = await getByNameMovies(query);
+      console.log(response)
+      if (response.length > 0) {
+        setMovie(() => [ ...response]);
+      }
+    
+    } catch (error) {
+     
+    } 
+  }, [ setMovie,query ]);
 
-  return (
+useEffect(() => {
+    if (query.trim() !== "") {
+      getByName();
+    }
+  }, [query, getByName]);
+    
+    const onSubmit = (searchItem) => {
+    if (searchItem.trim() === "") {
+      alert("Input is empty");
+      return;
+    }
+    setQuery(searchItem)
+  };
+
+  return (<div>
     <form ref={formRef} className="form" onSubmit={handleSubmit}>
       <input
         className="input"
@@ -26,7 +56,16 @@ const Movies = ({ onSubmit }) => {
       <button type="submit" className="button">
         <span className="button-label">Search</span>
       </button>
-    </form>
+      </form>
+      <ul>
+      {movie.map((movies) => (
+        <li key={movies.id}>
+          <h3>{movies.title}</h3>
+        
+        </li>
+      ))}
+    </ul>
+      </div>
   );
 };
 
