@@ -1,16 +1,17 @@
 import Loader from "../Loader/Loader";
 
-const Home = ({movies,isLoading,error}) => {
+const Home = ({ movies, isLoading, error, handleId }) => {
  
-  const http = 'https://image.tmdb.org/t/p/w200';
+
+  const http = "https://image.tmdb.org/t/p/w200";
   return (
     <ul>
-      {isLoading && <Loader/>}
+      {isLoading && <Loader />}
       {error && <p>Error: {error.message}</p>}
       {movies.map((movie) => (
-        <li key={movie.id}>
+        <li key={movie.id} onClick={() => handleId(movie.id)}>
           <h3>{movie.title}</h3>
-          <img src = {`${http}${movie.backdrop_path}`} alt="Movie" />
+          <img src={`${http}${movie.backdrop_path}`} alt="Movie" />
         </li>
       ))}
     </ul>

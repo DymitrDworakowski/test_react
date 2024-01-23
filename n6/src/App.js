@@ -37,6 +37,12 @@ function App() {
     getMovies();
   }, [getMovies]);
 
+   const handleId = (id) => {
+     // Використовуємо метод find
+     const findId = movies.find((movie) => movie.id === id);
+     console.log(findId);
+   };
+
   return (
     <Suspense fallback={<Loader />}>
       <div>
@@ -45,10 +51,24 @@ function App() {
           <Route
             path="/"
             element={
-              <Home movies={movies} isLoading={isLoading} error={error} />
+              <Home
+                movies={movies}
+                isLoading={isLoading}
+                error={error}
+                handleId={handleId}
+              />
             }
           />
-          <Route path="/movies" element={<Movies />} />
+          <Route
+            path="/movies"
+            element={
+              <Movies
+                handleId={handleId}
+                movies={movies}
+                setMovies={setMovies}
+              />
+            }
+          />
           <Route path="/movies/:movieId" element={<MovieDetails />} />
           <Route path="*" element={<h1>NOT FOUND</h1>} />
         </Routes>
