@@ -3,9 +3,11 @@ import Footer from "./components/Footer/Footer";
 import Header from "./components/Header/Header";
 import Home from "./components/Home/Home";
 import MovieDetails from "./components/MovieDetails/MovieDetails";
+import Movies from "./components/Movies/Movies";
 
 import { useCallback, useState, useEffect } from "react";
 import { fetchMovies } from "./api/movie";
+
 
 
 function App() {
@@ -39,6 +41,7 @@ function App() {
   return (
     <div >
       <Header />
+      <Movies/>
       <MovieDetails movies={movies}/>
       <Home movies={movies} isLoading={isLoading} error={error} />
       <Footer/>
