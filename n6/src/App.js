@@ -1,11 +1,17 @@
-import Footer from "./components/Footer/Footer";
-import Header from "./components/Header/Header";
-import Home from "./components/Home/Home";
-import MovieDetails from "./components/MovieDetails/MovieDetails";
-import Movies from "./components/Movies/Movies";
-
+import Loader from "./components/Loader/Loader";
+import React, { lazy, Suspense } from "react";
 import { useCallback, useState, useEffect } from "react";
+import { Routes, Route } from "react-router-dom";
 import { fetchMovies } from "./api/movie";
+
+// Змінені імпорти для React.lazy()
+const Home = lazy(() => import("./components/Home/Home"));
+const Movies = lazy(() => import("./components/Movies/Movies"));
+const MovieDetails = lazy(() =>
+  import("./components/MovieDetails/MovieDetails")
+);
+const Header = lazy(() => import("./components/Header/Header"));
+const Footer = lazy(() => import("./components/Footer/Footer"));
 
 function App() {
   const [movies, setMovies] = useState([]);
@@ -32,13 +38,23 @@ function App() {
   }, [getMovies]);
 
   return (
-    <div>
-      <Header />
-      <Movies />
-      <MovieDetails />
-      <Home movies={movies} isLoading={isLoading} error={error} />
-      <Footer />
-    </div>
+    <Suspense fallback={<Loader />}>
+      <div>
+        <Header />
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <Home movies={movies} isLoading={isLoading} error={error} />
+            }
+          />
+          <Route path="/movies" element={<Movies />} />
+          <Route path="/movies/:movieId" element={<MovieDetails />} />
+          <Route path="*" element={<h1>NOT FOUND</h1>} />
+        </Routes>
+        <Footer />
+      </div>
+    </Suspense>
   );
 }
 

@@ -40,6 +40,7 @@ const Movies = () => {
       return;
     }
     setQuery(searchItem);
+    setMovie([]); // за допомогою setMovie([]) в функції onSubmit обнулює масив movie.
   };
 
   return (
