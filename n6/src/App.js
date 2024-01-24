@@ -1,7 +1,7 @@
 import Loader from "./components/Loader/Loader";
-import React, { lazy, Suspense } from "react";
-import { useCallback, useState, useEffect } from "react";
-import { Routes, Route } from "react-router-dom";
+
+import React, { lazy, Suspense, useCallback, useState, useEffect } from "react";
+import { Routes, Route, useNavigate, useParams } from "react-router-dom";
 import { fetchMovies } from "./api/movie";
 
 // Змінені імпорти для React.lazy()
@@ -15,9 +15,10 @@ const Footer = lazy(() => import("./components/Footer/Footer"));
 
 function App() {
   const [movies, setMovies] = useState([]);
-  const [filmById, setFilmById] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  
+  const navigate = useNavigate();
 
   const getMovies = useCallback(async () => {
     try {
@@ -25,25 +26,23 @@ function App() {
       const response = await fetchMovies();
 
       if (response.length > 0) {
-        setMovies(() => [...response]);
+        setMovies(response);
       }
     } catch (error) {
       setError(error);
     } finally {
       setIsLoading(false);
     }
-  }, [setIsLoading, setMovies, setError]);
+  }, []);
 
   useEffect(() => {
     getMovies();
   }, [getMovies]);
 
   const selectMovie = (id) => {
-    // Використовуємо метод map для зміни потрібного об'єкта у масиві
-    const selectedMovie = movies.find((movie) => movie.id === id);
-    setFilmById(selectedMovie);
-    console.log(selectedMovie);
+    navigate(`/movies/${id}`);
   };
+
 
   return (
     <Suspense fallback={<Loader />}>
@@ -63,11 +62,11 @@ function App() {
           />
           <Route
             path="/movies"
-            element={<Movies selectMovie={selectMovie} filmById={filmById} movies={movies} setMovies={setMovies}  />}
-          />
+            element={<Movies selectMovie={selectMovie} movies={movies} setMovies={setMovies}  />}
+         />
           <Route
             path="/movies/:movieId"
-            element={<MovieDetails filmById={filmById} />}
+            element={<MovieDetails />}
           />
           <Route path="*" element={<h1>NOT FOUND</h1>} />
         </Routes>

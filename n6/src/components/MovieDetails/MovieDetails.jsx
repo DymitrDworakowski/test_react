@@ -7,7 +7,7 @@ const MovieDetails = ({ filmById }) => {
   
   return (<div>
     <h1>{filmById.title}</h1>
-    <Cast movies={filmById} />
+    <Cast filmById={filmById} />
     <Reviews/>
   </div>);
 };
