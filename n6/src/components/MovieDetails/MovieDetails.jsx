@@ -1,15 +1,28 @@
 //компонент MovieDetails, сторінка з детальною інформацією про кінофільм.
+import React from "react";
+import { useParams } from "react-router-dom";
 
-import Cast from '../Cast/Cast';
-import Reviews from '../Reviews/Reviews';
+const MovieDetails = ({ movies }) => {
+  const { movieId } = useParams();
 
-const MovieDetails = ({ filmById }) => {
-  
-  return (<div>
-    <h1>{filmById.title}</h1>
-    <Cast filmById={filmById} />
-    <Reviews/>
-  </div>);
+  // Знаходимо фільм із списку фільмів за його ідентифікатором
+  const selectedMovie = movies.find((movie) => movie.id === Number(movieId));
+
+  // Перевіряємо, чи фільм знайдено
+  if (!selectedMovie) {
+    return <h2>Movie not found</h2>;
+  }
+
+  const { title, description, releaseYear, genre } = selectedMovie;
+
+  return (
+    <div>
+      <h2>{title}</h2>
+      <p>Release Year: {releaseYear}</p>
+      <p>Genre: {genre}</p>
+      <p>Description: {description}</p>
+    </div>
+  );
 };
 
 export default MovieDetails;

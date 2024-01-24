@@ -17,7 +17,7 @@ function App() {
   const [movies, setMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
-  
+
   const navigate = useNavigate();
 
   const getMovies = useCallback(async () => {
@@ -39,11 +39,6 @@ function App() {
     getMovies();
   }, [getMovies]);
 
-  const selectMovie = (id) => {
-    navigate(`/movies/${id}`);
-  };
-
-
   return (
     <Suspense fallback={<Loader />}>
       <div>
@@ -52,21 +47,16 @@ function App() {
           <Route
             path="/"
             element={
-              <Home
-                movies={movies}
-                isLoading={isLoading}
-                error={error}
-                selectMovie={selectMovie}
-              />
+              <Home movies={movies} isLoading={isLoading} error={error} />
             }
           />
           <Route
             path="/movies"
-            element={<Movies selectMovie={selectMovie} movies={movies} setMovies={setMovies}  />}
-         />
+            element={<Movies movies={movies} setMovies={setMovies} />}
+          />
           <Route
             path="/movies/:movieId"
-            element={<MovieDetails />}
+            element={<MovieDetails movies={movies} />}
           />
           <Route path="*" element={<h1>NOT FOUND</h1>} />
         </Routes>
