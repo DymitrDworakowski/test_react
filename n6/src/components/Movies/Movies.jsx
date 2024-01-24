@@ -2,9 +2,9 @@
 import React, { useCallback, useRef, useEffect, useState } from "react";
 import { getByNameMovies } from "../../api/movie";
 
-const Movies = () => {
+const Movies = ({ filmById, selectMovie, movies, setMovies }) => {
   const formRef = useRef(null);
-  const [movie, setMovie] = useState([]);
+  // const [movie, setMovie] = useState([]);
   const [query, setQuery] = useState("");
 
   // handleSubmit: Ця функція викликається при надсиланні форми пошуку. Вона отримує значення введеного тексту з форми, викликає функцію onSubmit та скидає форму.
@@ -21,10 +21,10 @@ const Movies = () => {
       const response = await getByNameMovies(query);
       console.log(response);
       if (response.length > 0) {
-        setMovie(() => [...response]);
+        setMovies(() => [...response]);
       }
     } catch (error) {}
-  }, [setMovie, query]);
+  }, [setMovies, query]);
 
   // useEffect: Цей ефект викликається при зміні query або функції getByName. Якщо значення query не порожнє, він викликає функцію getByName.
   useEffect(() => {
@@ -40,9 +40,9 @@ const Movies = () => {
       return;
     }
     setQuery(searchItem);
-    setMovie([]); // за допомогою setMovie([]) в функції onSubmit обнулює масив movie.
+    setMovies([]); // за допомогою setMovie([]) в функції onSubmit обнулює масив movie.
   };
-
+console.log(movies)
   return (
     <div>
       <form ref={formRef} className="form" onSubmit={handleSubmit}>
@@ -58,13 +58,15 @@ const Movies = () => {
           <span className="button-label">Search</span>
         </button>
       </form>
-      <ul>
-        {movie.map((movies) => (
-          <li key={movies.id}>
-            <h3>{movies.title}</h3>
-          </li>
-        ))}
-      </ul>
+     {movies.length > 0 && (
+  <ul onClick={() => selectMovie()}>
+    {movies.map((film) => (
+      <li key={film.id}>
+        <h3>{film.title}</h3>
+      </li>
+    ))}
+  </ul>
+)}
     </div>
   );
 };

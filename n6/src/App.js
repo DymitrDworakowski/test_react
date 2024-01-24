@@ -15,6 +15,7 @@ const Footer = lazy(() => import("./components/Footer/Footer"));
 
 function App() {
   const [movies, setMovies] = useState([]);
+  const [filmById, setFilmById] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -37,11 +38,12 @@ function App() {
     getMovies();
   }, [getMovies]);
 
-   const handleId = (id) => {
-     // Використовуємо метод find
-     const findId = movies.find((movie) => movie.id === id);
-     console.log(findId);
-   };
+  const selectMovie = (id) => {
+    // Використовуємо метод map для зміни потрібного об'єкта у масиві
+    const selectedMovie = movies.find((movie) => movie.id === id);
+    setFilmById(selectedMovie);
+    console.log(selectedMovie);
+  };
 
   return (
     <Suspense fallback={<Loader />}>
@@ -55,21 +57,18 @@ function App() {
                 movies={movies}
                 isLoading={isLoading}
                 error={error}
-                handleId={handleId}
+                selectMovie={selectMovie}
               />
             }
           />
           <Route
             path="/movies"
-            element={
-              <Movies
-                handleId={handleId}
-                movies={movies}
-                setMovies={setMovies}
-              />
-            }
+            element={<Movies selectMovie={selectMovie} filmById={filmById} movies={movies} setMovies={setMovies}  />}
           />
-          <Route path="/movies/:movieId" element={<MovieDetails />} />
+          <Route
+            path="/movies/:movieId"
+            element={<MovieDetails filmById={filmById} />}
+          />
           <Route path="*" element={<h1>NOT FOUND</h1>} />
         </Routes>
         <Footer />

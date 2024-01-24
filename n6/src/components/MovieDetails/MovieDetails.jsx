@@ -3,9 +3,11 @@
 import Cast from '../Cast/Cast';
 import Reviews from '../Reviews/Reviews';
 
-const MovieDetails = ({movies}) => {
+const MovieDetails = ({ filmById }) => {
+  
   return (<div>
-    <Cast movies={movies} />
+    <h1>{filmById.title}</h1>
+    <Cast movies={filmById} />
     <Reviews/>
   </div>);
 };

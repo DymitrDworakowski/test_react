@@ -1,6 +1,7 @@
 import Loader from "../Loader/Loader";
+import { Link } from "react-router-dom";
 
-const Home = ({ movies, isLoading, error, handleId }) => {
+const Home = ({ movies, isLoading, error, selectMovie }) => {
  
 
   const http = "https://image.tmdb.org/t/p/w200";
@@ -8,11 +9,11 @@ const Home = ({ movies, isLoading, error, handleId }) => {
     <ul>
       {isLoading && <Loader />}
       {error && <p>Error: {error.message}</p>}
-      {movies.map((movie) => (
-        <li key={movie.id} onClick={() => handleId(movie.id)}>
-          <h3>{movie.title}</h3>
-          <img src={`${http}${movie.backdrop_path}`} alt="Movie" />
-        </li>
+      {movies.map(({id,title,backdrop_path}) => (
+        <Link to={`/movies/:${id}`} key={id}><li  onClick={() => selectMovie(id)}>
+          <h3>{title}</h3>
+          <img src={`${http}${backdrop_path}`} alt="Movie" />
+        </li></Link>
       ))}
     </ul>
   );
