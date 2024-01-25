@@ -4,8 +4,9 @@ import { Link } from "react-router-dom";
 
 const Movies = ({ movies, setMovies }) => {
   const formRef = useRef(null);
+  const [searchFilms, setSearchFilms] = useState([]);
   const [query, setQuery] = useState("");
-  
+  console.log(formRef);
 
   // handleSubmit: Ця функція викликається при надсиланні форми пошуку.
   // Вона отримує значення введеного тексту з форми, викликає функцію onSubmit та скидає форму.
@@ -25,10 +26,10 @@ const Movies = ({ movies, setMovies }) => {
       console.log(response);
       if (response.length > 0) {
         // Використовуйте дефолтний стан, якщо стан movies порожній
-        setMovies(() => [...response]);
+        setSearchFilms(() => [...response]);
       }
     } catch (error) {}
-  }, [setMovies, query]);
+  }, [setSearchFilms, query]);
 
   // useEffect: Цей ефект викликається при зміні query або функції getByName.
   // Якщо значення query не порожнє, він викликає функцію getByName.
@@ -67,7 +68,7 @@ const Movies = ({ movies, setMovies }) => {
       </form>
       {movies.length > 0 && (
         <ul>
-          {movies.map(({ id, title, release_date }) => (
+          {searchFilms.map(({ id, title, release_date }) => (
             <Link to={`/movies/${id}`} key={id}>
               <li>
                 <h3>{title}</h3>
