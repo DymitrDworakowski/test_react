@@ -30,12 +30,17 @@ const Reviews = () => {
   return (
     <ul>
       {isLoading && <Loader />}
-      {reviews.map(({ id, author, content }) => (
-        <li key={id}>
-          Author: {author}
-          <p>{content}</p>
-        </li>
-      ))}
+
+      {reviews.length === 0 ? (
+        <p>No reviwes!</p>
+      ) : (
+        reviews.map(({ id, author, content }) => (
+          <li key={id}>
+            Author: {author}
+            <p>{content}</p>
+          </li>
+        ))
+      )}
     </ul>
   );
 };

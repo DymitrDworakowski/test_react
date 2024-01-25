@@ -1,13 +1,16 @@
 import React, { useCallback, useRef, useEffect, useState } from "react";
 import { getByNameMovies } from "../../api/movie";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import Loader from "../Loader/Loader";
 
 const Movies = () => {
   const formRef = useRef(null);
   const [searchFilms, setSearchFilms] = useState([]);
-  const [query, setQuery] = useState("");
+  // const [query, setQuery] = useState("");
+
   const [isLoading, setIsLoading] = useState(false);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const query = searchParams.get("query");
   console.log(formRef);
 
   // handleSubmit: Ця функція викликається при надсиланні форми пошуку.
@@ -40,7 +43,7 @@ const Movies = () => {
   // useEffect: Цей ефект викликається при зміні query або функції getByName.
   // Якщо значення query не порожнє, він викликає функцію getByName.
   useEffect(() => {
-    if (query.trim() !== "") {
+    if (query) {
       getByName();
     }
   }, [query, getByName]);
@@ -52,7 +55,8 @@ const Movies = () => {
       alert("Input is empty");
       return;
     }
-    setQuery(searchItem);
+    // setQuery(searchItem);
+    setSearchParams({ query: searchItem });
   };
 
   return (
@@ -64,6 +68,7 @@ const Movies = () => {
           type="text"
           autoComplete="off"
           autoFocus
+          value={query}
           placeholder="Search movies"
         />
         <button type="submit" className="button">

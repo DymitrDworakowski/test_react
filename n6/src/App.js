@@ -5,6 +5,7 @@ import { Routes, Route } from "react-router-dom";
 import { fetchMovies } from "./api/movie";
 import Cast from "./components/Cast/Cast";
 import Reviews from "./components/Reviews/Reviews";
+
 // Змінені імпорти для React.lazy()
 const Home = lazy(() => import("./components/Home/Home"));
 const Movies = lazy(() => import("./components/Movies/Movies"));
