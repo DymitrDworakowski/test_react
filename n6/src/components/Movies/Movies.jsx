@@ -1,11 +1,13 @@
 import React, { useCallback, useRef, useEffect, useState } from "react";
 import { getByNameMovies } from "../../api/movie";
 import { Link } from "react-router-dom";
+import Loader from "../Loader/Loader";
 
-const Movies = ({ movies, setMovies }) => {
+const Movies = () => {
   const formRef = useRef(null);
   const [searchFilms, setSearchFilms] = useState([]);
   const [query, setQuery] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   console.log(formRef);
 
   // handleSubmit: Ця функція викликається при надсиланні форми пошуку.
@@ -22,13 +24,17 @@ const Movies = ({ movies, setMovies }) => {
   // Вона отримує результат пошуку і, якщо він не порожній, оновлює стан movie знайденими фільмами.
   const getByName = useCallback(async () => {
     try {
+      setIsLoading(true);
       const response = await getByNameMovies(query);
-      console.log(response);
+
       if (response.length > 0) {
         // Використовуйте дефолтний стан, якщо стан movies порожній
         setSearchFilms(() => [...response]);
       }
-    } catch (error) {}
+    } catch (error) {
+    } finally {
+      setIsLoading(false);
+    }
   }, [setSearchFilms, query]);
 
   // useEffect: Цей ефект викликається при зміні query або функції getByName.
@@ -49,8 +55,6 @@ const Movies = ({ movies, setMovies }) => {
     setQuery(searchItem);
   };
 
-  console.log(movies);
-
   return (
     <div>
       <form ref={formRef} className="form" onSubmit={handleSubmit}>
@@ -66,7 +70,8 @@ const Movies = ({ movies, setMovies }) => {
           <span className="button-label">Search</span>
         </button>
       </form>
-      {movies.length > 0 && (
+      {isLoading && <Loader />}
+      {searchFilms.length > 0 && (
         <ul>
           {searchFilms.map(({ id, title, release_date }) => (
             <Link to={`/movies/${id}`} key={id}>

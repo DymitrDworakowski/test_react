@@ -2,11 +2,13 @@
 import React from "react";
 import { useCallback, useEffect, useState } from "react";
 import { getMovieDetails } from "../../api/movie";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, Outlet } from "react-router-dom";
+import Loader from "../Loader/Loader";
 
-const MovieDetails = ({ setIsLoading }) => {
+const MovieDetails = () => {
   const [filmInfo, setFilmInfo] = useState([]);
   const { movieId } = useParams();
+  const [isLoading, setIsLoading] = useState(false);
 
   const MoviesDetails = useCallback(async () => {
     setIsLoading(true);
@@ -37,6 +39,7 @@ const MovieDetails = ({ setIsLoading }) => {
           genres,
         }) => (
           <ul key={id}>
+            {isLoading && <Loader />}
             <h2>
               {title}({release_date})
             </h2>
@@ -52,15 +55,12 @@ const MovieDetails = ({ setIsLoading }) => {
                 <li key={id}> {name}</li>
               ))}
             </ul>
-            <Link to={`/movies/${id}/cast`}>
-              Cast
-            </Link>
-            <Link to={`/movies/${id}/reviews`} >
-              Revies
-            </Link>
+            <Link to={`/movies/${id}/cast`}>Cast</Link>
+            <Link to={`/movies/${id}/reviews`}>Revies</Link>
           </ul>
         )
       )}
+      <Outlet />
     </div>
   );
 };

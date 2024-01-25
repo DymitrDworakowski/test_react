@@ -49,24 +49,11 @@ function App() {
               <Home movies={movies} isLoading={isLoading} error={error} />
             }
           />
-          <Route
-            path="/movies"
-            element={<Movies movies={movies} setMovies={setMovies} />}
-          />
-          <Route
-            path="/movies/:movieId"
-            element={
-              <MovieDetails setIsLoading={setIsLoading} setError={setError} />
-            }
-          />
-          <Route
-            path="/movies/:movieId/cast"
-            element={<Cast isLoading={isLoading} />}
-          />
-          <Route
-            path="/movies/:movieId/reviews"
-            element={<Reviews isLoading={isLoading} />}
-          />
+          <Route path="/movies" element={<Movies />} />
+          <Route path="/movies/:movieId" element={<MovieDetails />}>
+            <Route path="/movies/:movieId/cast" element={<Cast />} />
+            <Route path="/movies/:movieId/reviews" element={<Reviews />} />
+          </Route>
           <Route path="*" element={<h1>NOT FOUND</h1>} />
         </Routes>
         <Footer />
