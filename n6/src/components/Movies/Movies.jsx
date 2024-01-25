@@ -1,13 +1,12 @@
 import React, { useCallback, useRef, useEffect, useState } from "react";
 import { getByNameMovies } from "../../api/movie";
+import { Link } from "react-router-dom";
 
-const Movies = ({ filmById, selectMovie, movies, setMovies }) => {
+const Movies = ({ movies, setMovies }) => {
   const formRef = useRef(null);
   const [query, setQuery] = useState("");
   
-  // Визначте дефолтний стан для movies
-  const defaultMoviesState = useRef([]);
-  
+
   // handleSubmit: Ця функція викликається при надсиланні форми пошуку.
   // Вона отримує значення введеного тексту з форми, викликає функцію onSubmit та скидає форму.
   const handleSubmit = (evt) => {
@@ -26,10 +25,10 @@ const Movies = ({ filmById, selectMovie, movies, setMovies }) => {
       console.log(response);
       if (response.length > 0) {
         // Використовуйте дефолтний стан, якщо стан movies порожній
-        setMovies(() => [...(movies.length > 0 ? movies : defaultMoviesState.current), ...response]);
+        setMovies(() => [...response]);
       }
     } catch (error) {}
-  }, [setMovies, query, movies]);
+  }, [setMovies, query]);
 
   // useEffect: Цей ефект викликається при зміні query або функції getByName.
   // Якщо значення query не порожнє, він викликає функцію getByName.
@@ -47,12 +46,6 @@ const Movies = ({ filmById, selectMovie, movies, setMovies }) => {
       return;
     }
     setQuery(searchItem);
-    // Якщо стан movies порожній, обновіть його дефолтним станом
-    if (movies.length === 0) {
-      setMovies(defaultMoviesState.current);
-    } else {
-      setMovies([]); // За допомогою setMovie([]) в функції onSubmit обнулює масив movie.
-    }
   };
 
   console.log(movies);
@@ -73,11 +66,14 @@ const Movies = ({ filmById, selectMovie, movies, setMovies }) => {
         </button>
       </form>
       {movies.length > 0 && (
-        <ul onClick={() => selectMovie()}>
-          {movies.map((film) => (
-            <li key={film.id}>
-              <h3>{film.title}</h3>
-            </li>
+        <ul>
+          {movies.map(({ id, title, release_date }) => (
+            <Link to={`/movies/${id}`} key={id}>
+              <li>
+                <h3>{title}</h3>
+                <p>{release_date}</p>
+              </li>
+            </Link>
           ))}
         </ul>
       )}

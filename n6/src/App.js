@@ -1,9 +1,10 @@
 import Loader from "./components/Loader/Loader";
 
 import React, { lazy, Suspense, useCallback, useState, useEffect } from "react";
-import { Routes, Route, useNavigate, useParams } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { fetchMovies } from "./api/movie";
-
+import Cast from "./components/Cast/Cast";
+import Reviews from "./components/Reviews/Reviews";
 // Змінені імпорти для React.lazy()
 const Home = lazy(() => import("./components/Home/Home"));
 const Movies = lazy(() => import("./components/Movies/Movies"));
@@ -17,8 +18,6 @@ function App() {
   const [movies, setMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
-
-  const navigate = useNavigate();
 
   const getMovies = useCallback(async () => {
     try {
@@ -56,7 +55,17 @@ function App() {
           />
           <Route
             path="/movies/:movieId"
-            element={<MovieDetails movies={movies} />}
+            element={
+              <MovieDetails setIsLoading={setIsLoading} setError={setError} />
+            }
+          />
+          <Route
+            path="/movies/:movieId/cast"
+            element={<Cast isLoading={isLoading} />}
+          />
+          <Route
+            path="/movies/:movieId/reviews"
+            element={<Reviews isLoading={isLoading} />}
           />
           <Route path="*" element={<h1>NOT FOUND</h1>} />
         </Routes>
