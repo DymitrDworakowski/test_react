@@ -1,7 +1,4 @@
 //компонент MovieDetails, сторінка з детальною інформацією про кінофільм.
-import Cast from "../Cast/Cast";
-import Revies from "../Reviews/Reviews";
-
 import React from "react";
 import { useCallback, useEffect, useState } from "react";
 import { getMovieDetails } from "../../api/movie";

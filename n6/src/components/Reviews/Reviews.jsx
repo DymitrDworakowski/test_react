@@ -26,7 +26,7 @@ const Reviews = () => {
   useEffect(() => {
     Reviews();
   }, [Reviews]);
-  console.log(reviews);
+
   return (
     <ul>
       {isLoading && <Loader />}
