@@ -6,8 +6,7 @@ import Loader from "../Loader/Loader";
 const Movies = () => {
   const formRef = useRef(null);
   const [searchFilms, setSearchFilms] = useState([]);
-  // const [query, setQuery] = useState("");
-
+ 
   const [isLoading, setIsLoading] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
   const query = searchParams.get("query");
@@ -18,7 +17,6 @@ const Movies = () => {
   const handleSubmit = (evt) => {
     evt.preventDefault();
     const searchItem = formRef.current.elements.searchText.value;
-    console.log(searchItem);
     onSubmit(searchItem);
     formRef.current.reset();
   };
@@ -55,9 +53,10 @@ const Movies = () => {
       alert("Input is empty");
       return;
     }
-    // setQuery(searchItem);
+   
     setSearchParams({ query: searchItem });
   };
+
 
   return (
     <div>
@@ -67,9 +66,9 @@ const Movies = () => {
           name="searchText"
           type="text"
           autoComplete="off"
-          autoFocus
-          value={query}
+          defaultValue={query || ''}
           placeholder="Search movies"
+          
         />
         <button type="submit" className="button">
           <span className="button-label">Search</span>
