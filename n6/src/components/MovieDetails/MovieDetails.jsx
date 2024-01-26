@@ -28,6 +28,7 @@ const MovieDetails = () => {
 
   return (
     <div>
+      
       {filmInfo.map(
         ({
           id,

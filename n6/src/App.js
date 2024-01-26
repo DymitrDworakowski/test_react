@@ -40,6 +40,7 @@ function App() {
   }, [getMovies]);
 
   return (
+    
     <Suspense fallback={<Loader />}>
       <div>
         <Header />

@@ -1,9 +1,14 @@
-import '../Loader/Loader.module.css'
+import { Hourglass } from "react-loader-spinner";
 
-const Loader = () => {
-    return <div>
-<span className="loader"></span>
-    </div>
-}
-
-export default Loader;
+export const Loader = () => {
+   return (<Hourglass
+  visible={true}
+  height="80"
+  width="80"
+  ariaLabel="hourglass-loading"
+  wrapperStyle={{}}
+  wrapperClass=""
+  colors={['#306cce', '#72a1ed']}
+  />)
+};
+export default Loader; 
