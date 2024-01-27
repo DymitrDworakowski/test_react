@@ -6,11 +6,10 @@ import Loader from "../Loader/Loader";
 const Movies = () => {
   const formRef = useRef(null);
   const [searchFilms, setSearchFilms] = useState([]);
- 
+
   const [isLoading, setIsLoading] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
   const query = searchParams.get("query");
-  console.log(formRef);
 
   // handleSubmit: Ця функція викликається при надсиланні форми пошуку.
   // Вона отримує значення введеного тексту з форми, викликає функцію onSubmit та скидає форму.
@@ -53,10 +52,9 @@ const Movies = () => {
       alert("Input is empty");
       return;
     }
-   
+
     setSearchParams({ query: searchItem });
   };
-
 
   return (
     <div>
@@ -66,9 +64,8 @@ const Movies = () => {
           name="searchText"
           type="text"
           autoComplete="off"
-          defaultValue={query || ''}
+          defaultValue={query || ""}
           placeholder="Search movies"
-          
         />
         <button type="submit" className="button">
           <span className="button-label">Search</span>

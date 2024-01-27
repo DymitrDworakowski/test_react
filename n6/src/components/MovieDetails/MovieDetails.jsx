@@ -1,15 +1,19 @@
 //компонент MovieDetails, сторінка з детальною інформацією про кінофільм.
 import React from "react";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState, useRef } from "react";
 import { getMovieDetails } from "../../api/movie";
-import { useParams, Link, Outlet } from "react-router-dom";
+import { useParams, Link, Outlet, useLocation } from "react-router-dom";
 import Loader from "../Loader/Loader";
 
 const MovieDetails = () => {
   const [filmInfo, setFilmInfo] = useState([]);
   const { movieId } = useParams();
   const [isLoading, setIsLoading] = useState(false);
+  const location = useLocation();
+  const backlink = useRef(location.state?.from ?? "/");
+  console.log(backlink);
 
+  
   const MoviesDetails = useCallback(async () => {
     setIsLoading(true);
     try {
@@ -28,7 +32,6 @@ const MovieDetails = () => {
 
   return (
     <div>
-      
       {filmInfo.map(
         ({
           id,
@@ -41,6 +44,9 @@ const MovieDetails = () => {
         }) => (
           <ul key={id}>
             {isLoading && <Loader />}
+            <Link to={backlink.current}>
+              <button type="button">Go back</button>
+            </Link>
             <h2>
               {title}({release_date})
             </h2>
