@@ -2,9 +2,9 @@
   display: flex;
   flex-wrap: wrap; /* Дозволяє переносити елементи на новий рядок */
   justify-content: left;
-  gap: 10px;
-
+  gap: 15px;
 }
 .film {
-    width: auto;
+  width: auto;
+  margin: 0, 20px, 0, 20px;
 }
