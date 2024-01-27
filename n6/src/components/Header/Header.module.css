@@ -1,0 +1,6 @@
+.nav {
+  display: flex;
+  justify-content: center;
+  border: 3;
+  border-color: blue;
+}

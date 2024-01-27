@@ -1,0 +1,10 @@
+.film_container {
+  display: flex;
+  flex-wrap: wrap; /* Дозволяє переносити елементи на новий рядок */
+  justify-content: left;
+  gap: 10px;
+
+}
+.film {
+    width: auto;
+}

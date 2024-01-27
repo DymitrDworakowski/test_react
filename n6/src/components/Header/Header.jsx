@@ -1,12 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import css from "./Header.module.css";
 
-const Header = (props) => {
+const Header = () => {
   return (
-    <nav>
-      <Link to="/" >
-        Home
-      </Link>
+    <nav className={css.nav}>
+      <Link to="/">Home</Link>
       <Link to="/movies">Movies</Link>
     </nav>
   );
