@@ -1,8 +1,8 @@
 import Loader from "./components/Loader/Loader";
 
-import React, { lazy, Suspense, useCallback, useState, useEffect } from "react";
+import React, { lazy, Suspense} from "react";
 import { Routes, Route } from "react-router-dom";
-import { fetchMovies } from "./api/movie";
+
 import Cast from "./components/Cast/Cast";
 import Reviews from "./components/Reviews/Reviews";
 
@@ -16,31 +16,8 @@ const Header = lazy(() => import("./components/Header/Header"));
 const Footer = lazy(() => import("./components/Footer/Footer"));
 
 function App() {
-  const [movies, setMovies] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
-
-  const getMovies = useCallback(async () => {
-    try {
-      setIsLoading(true);
-      const response = await fetchMovies();
-
-      if (response.length > 0) {
-        setMovies(response);
-      }
-    } catch (error) {
-      setError(error);
-    } finally {
-      setIsLoading(false);
-    }
-  }, []);
-
-  useEffect(() => {
-    getMovies();
-  }, [getMovies]);
-
+  
   return (
-    
     <Suspense fallback={<Loader />}>
       <div>
         <Header />
@@ -48,7 +25,7 @@ function App() {
           <Route
             path="/"
             element={
-              <Home movies={movies} isLoading={isLoading} error={error} />
+              <Home/>
             }
           />
           <Route path="/movies" element={<Movies />} />

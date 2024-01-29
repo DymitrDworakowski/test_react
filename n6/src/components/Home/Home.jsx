@@ -1,9 +1,35 @@
 import Loader from "../Loader/Loader";
+import { fetchMovies } from "../../api/movie";
+
+import { useCallback, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import css from "./Home.module.css";
 
-const Home = ({ movies, isLoading, error }) => {
-  const http = "https://image.tmdb.org/t/p/w200";
+const Home = () => {
+  const [movies, setMovies] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  const getMovies = useCallback(async () => {
+    try {
+      setIsLoading(true);
+      const response = await fetchMovies();
+
+      if (response.length > 0) {
+        setMovies(response);
+      }
+    } catch (error) {
+      setError(error);
+    } finally {
+      setIsLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    getMovies();
+  }, [getMovies]);
+
+  const http = "https://image.tmdb.org/t/p/w300";
   return (
     <div className={css.film}>
       <ul className={css.film_container}>

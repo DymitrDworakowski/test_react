@@ -1,7 +1,30 @@
 .nav {
   display: flex;
+  justify-content: flex-start;
+  align-items: baseline;
+  background-color: floralwhite;
+  border: 2px solid black;
+  padding: 10px;
+  gap: 5px;
+}
+.logo {
+  margin-right: 60px;
+}
+.home {
+  border: 2px solid black;
+  align-self: center;
+  display: flex;
   justify-content: center;
-  border: 3;
-  border-color: blue;
-  padding: 30px;
+  align-items: center;
+  width: 80px;
+  height: 40px;
+}
+.movies {
+  border: 2px solid black;
+  align-self: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 80px;
+  height: 40px;
 }
