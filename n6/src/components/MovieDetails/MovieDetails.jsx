@@ -2,7 +2,7 @@
 import React from "react";
 import { useCallback, useEffect, useState,useRef } from "react";
 import { getMovieDetails } from "../../api/movie";
-import { useParams, Link, Outlet, useNavigate ,useLocation } from "react-router-dom";
+import { useParams, Link, Outlet,useLocation } from "react-router-dom";
 import Loader from "../Loader/Loader";
 
 const MovieDetails = () => {
@@ -49,8 +49,8 @@ const MovieDetails = () => {
         }) => (
           <ul key={id}>
             {isLoading && <Loader />}
-            <Link type="button"  to={backLinkHref.current}>
-              Go back
+            <Link to={backLinkHref.current}>
+              <button type="button">Go back</button>
             </Link>
             <h2>
               {title}({release_date})
