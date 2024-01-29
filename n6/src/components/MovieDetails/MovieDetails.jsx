@@ -1,23 +1,25 @@
 //компонент MovieDetails, сторінка з детальною інформацією про кінофільм.
 import React from "react";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState,useRef } from "react";
 import { getMovieDetails } from "../../api/movie";
-import { useParams, Link, Outlet, useNavigate  } from "react-router-dom";
+import { useParams, Link, Outlet, useNavigate ,useLocation } from "react-router-dom";
 import Loader from "../Loader/Loader";
 
 const MovieDetails = () => {
   const [filmInfo, setFilmInfo] = useState([]);
   const { movieId } = useParams();
   const [isLoading, setIsLoading] = useState(false);
-  const navigate = useNavigate();
-console.log(useNavigate())
+  // const navigate = useNavigate();
+  const location = useLocation();
+  const backLinkHref = useRef(location.state?.from ?? "/");
+  console.log(backLinkHref);
   
   const MoviesDetails = useCallback(async () => {
     setIsLoading(true);
     try {
       const response = await getMovieDetails(movieId);
 
-      setFilmInfo(() => [response]);
+      setFilmInfo(() => [response]);  
     } catch (error) {
     } finally {
       setIsLoading(false);
@@ -28,9 +30,9 @@ console.log(useNavigate())
     MoviesDetails();
   }, [MoviesDetails]);
 
- const handleGoBack = () => {
-    navigate(-1); // Повертається на попередню сторінку
-  };
+//  const handleGoBack = () => {
+//     navigate(-1); // Повертається на попередню сторінку
+//   };
 
 
   return (
@@ -47,9 +49,9 @@ console.log(useNavigate())
         }) => (
           <ul key={id}>
             {isLoading && <Loader />}
-            <button type="button" onClick={handleGoBack}>
+            <Link type="button"  to={backLinkHref.current}>
               Go back
-            </button>
+            </Link>
             <h2>
               {title}({release_date})
             </h2>

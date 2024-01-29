@@ -1,12 +1,14 @@
 import React, { useCallback, useRef, useEffect, useState } from "react";
 import { getByNameMovies } from "../../api/movie";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link, useSearchParams,useLocation } from "react-router-dom";
 import Loader from "../Loader/Loader";
 
 const Movies = () => {
+
+  const location = useLocation();
   const formRef = useRef(null);
   const [searchFilms, setSearchFilms] = useState([]);
-
+  console.log(location)
   const [isLoading, setIsLoading] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
   const query = searchParams.get("query");
@@ -75,7 +77,7 @@ const Movies = () => {
       {searchFilms.length > 0 && (
         <ul>
           {searchFilms.map(({ id, title, release_date }) => (
-            <Link to={`/movies/${id}`} key={id}>
+            <Link to={`/movies/${id}`} key={id} state={ { from: location }}>
               <li>
                 <h3>{title}</h3>
                 <p>{release_date}</p>
