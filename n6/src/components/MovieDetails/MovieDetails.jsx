@@ -1,18 +1,16 @@
 //компонент MovieDetails, сторінка з детальною інформацією про кінофільм.
 import React from "react";
-import { useCallback, useEffect, useState, useRef } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { getMovieDetails } from "../../api/movie";
-import { useParams, Link, Outlet, useLocation } from "react-router-dom";
+import { useParams, Link, Outlet, useNavigate  } from "react-router-dom";
 import Loader from "../Loader/Loader";
 
 const MovieDetails = () => {
   const [filmInfo, setFilmInfo] = useState([]);
   const { movieId } = useParams();
   const [isLoading, setIsLoading] = useState(false);
-  const location = useLocation();
-  const backlink = useRef(location.state?.from ?? "/");
-  console.log(backlink);
-
+  const navigate = useNavigate();
+console.log(useNavigate())
   
   const MoviesDetails = useCallback(async () => {
     setIsLoading(true);
@@ -30,6 +28,11 @@ const MovieDetails = () => {
     MoviesDetails();
   }, [MoviesDetails]);
 
+ const handleGoBack = () => {
+    navigate(-1); // Повертається на попередню сторінку
+  };
+
+
   return (
     <div>
       {filmInfo.map(
@@ -44,9 +47,9 @@ const MovieDetails = () => {
         }) => (
           <ul key={id}>
             {isLoading && <Loader />}
-            <Link to={backlink.current}>
-              <button type="button">Go back</button>
-            </Link>
+            <button type="button" onClick={handleGoBack}>
+              Go back
+            </button>
             <h2>
               {title}({release_date})
             </h2>
