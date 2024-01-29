@@ -31,15 +31,19 @@ const Home = () => {
 
   const http = "https://image.tmdb.org/t/p/w300";
   return (
-    <div className={css.film}>
+    <div>
       <ul className={css.film_container}>
         {isLoading && <Loader />}
         {error && <p>Error: {error.message}</p>}
         {movies.map(({ id, title, backdrop_path }) => (
           <Link to={`/movies/${id}`} key={id}>
-            <li>
-              <h3>{title}</h3>
-              <img src={`${http}${backdrop_path}`} alt="Movie" />
+            <li className={css.film}>
+              <h3 className={css.title}>{title}</h3>
+              <img
+                className={css.img}
+                src={`${http}${backdrop_path}`}
+                alt="Movie"
+              />
             </li>
           </Link>
         ))}

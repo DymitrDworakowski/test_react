@@ -11,3 +11,13 @@
   margin-right: auto;
   text-transform: none;
 }
+.film {
+  display: block;
+}
+
+.title {
+  margin: 5px;
+}
+.img {
+  justify-self: auto;
+}
