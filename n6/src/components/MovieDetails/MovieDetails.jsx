@@ -1,8 +1,8 @@
 //компонент MovieDetails, сторінка з детальною інформацією про кінофільм.
 import React from "react";
-import { useCallback, useEffect, useState,useRef } from "react";
+import { useCallback, useEffect, useState, useRef } from "react";
 import { getMovieDetails } from "../../api/movie";
-import { useParams, Link, Outlet,useLocation } from "react-router-dom";
+import { useParams, Link, Outlet, useLocation } from "react-router-dom";
 import Loader from "../Loader/Loader";
 
 const MovieDetails = () => {
@@ -13,13 +13,13 @@ const MovieDetails = () => {
   const location = useLocation();
   const backLinkHref = useRef(location.state?.from ?? "/");
   console.log(backLinkHref);
-  
+
   const MoviesDetails = useCallback(async () => {
     setIsLoading(true);
     try {
       const response = await getMovieDetails(movieId);
 
-      setFilmInfo(() => [response]);  
+      setFilmInfo(() => [response]);
     } catch (error) {
     } finally {
       setIsLoading(false);
@@ -30,10 +30,9 @@ const MovieDetails = () => {
     MoviesDetails();
   }, [MoviesDetails]);
 
-//  const handleGoBack = () => {
-//     navigate(-1); // Повертається на попередню сторінку
-//   };
-
+  //  const handleGoBack = () => {
+  //     navigate(-1); // Повертається на попередню сторінку
+  //   };
 
   return (
     <div>
@@ -67,8 +66,8 @@ const MovieDetails = () => {
                 <li key={id}> {name}</li>
               ))}
             </ul>
-            <Link to={`/movies/${id}/cast`}>Cast</Link>
-            <Link to={`/movies/${id}/reviews`}>Revies</Link>
+            <Link to={`cast`}>Cast</Link>
+            <Link to={`reviews`}>Revies</Link>
           </ul>
         )
       )}
