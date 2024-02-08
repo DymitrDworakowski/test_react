@@ -10,7 +10,9 @@
 .logo {
   margin-right: 60px;
 }
+
 .home {
+  background-color: wheat;
   border: 2px solid black;
   align-self: center;
   display: flex;
@@ -19,7 +21,16 @@
   width: 80px;
   height: 40px;
 }
+.home:active {
+  background-color: sienna;
+  color: black;
+}
+
+.movies:active {
+  background-color: blueviolet;
+}
 .movies {
+  background-color: wheat;
   border: 2px solid black;
   align-self: center;
   display: flex;
