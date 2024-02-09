@@ -1,0 +1,11 @@
+.div_filter {
+  display: flex;
+  flex-direction: column;
+  border-bottom: 2px solid black;
+}
+
+.p_filter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
