@@ -1,15 +1,12 @@
 import { nanoid } from "nanoid"; // Імпорт nanoid
 import { useState } from "react";
-import css from './ContactForm.module.css';
+import css from "./ContactForm.module.css";
 
 const ContactForm = ({ contacts, onAddContact }) => {
   const [formData, setFormData] = useState({
     name: "",
     number: "",
   });
-
-
-
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
@@ -49,28 +46,32 @@ const ContactForm = ({ contacts, onAddContact }) => {
   };
 
   return (
-    <div className={css.form}>
-    <form onSubmit={handleSubmit} >
-      <p>Name</p>
-      <input className={css.input}
-        type="text"
-        name="name"
-        required
-        placeholder="Name"
-        value={formData.name}
-        onChange={handleChangeInput}
-      />
-      <p>Number</p>
-      <input className={css.input}
-        type="tel"
-        name="number"
-        required
-        placeholder="Number"
-        value={formData.number}
-        onChange={handleChangeInput}
-      />
-      <button type="submit" className={css.form_button}>Add contact</button>
-    </form>
+    <div className={css.div_form}>
+      <form className={css.form} onSubmit={handleSubmit}>
+        <p>Name</p>
+        <input
+          className={css.input}
+          type="text"
+          name="name"
+          required
+          placeholder="Name"
+          value={formData.name}
+          onChange={handleChangeInput}
+        />
+        <p>Number</p>
+        <input
+          className={css.input}
+          type="tel"
+          name="number"
+          required
+          placeholder="Number"
+          value={formData.number}
+          onChange={handleChangeInput}
+        />
+        <button type="submit" className={css.form_button}>
+          Add contact
+        </button>
+      </form>
     </div>
   );
 };

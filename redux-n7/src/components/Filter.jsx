@@ -4,7 +4,7 @@ const Filter = ({ handleFilter }) => {
   return (
     <div className={css.div_filter}>
       <p className={css.p_filter}>Find contact by name</p>
-      <input type="text" onChange={handleFilter} />
+      <input type="text" placeholder="Find contact" onChange={handleFilter} />
     </div>
   );
 };
