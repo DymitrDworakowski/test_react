@@ -1,48 +1,62 @@
-import { nanoid } from "nanoid"; // Імпорт nanoid
-import { useState } from "react";
+// import { nanoid } from "nanoid"; // Імпорт nanoid
+// import { useState } from "react";
 import css from "./ContactForm.module.css";
 
-const ContactForm = ({ contacts, onAddContact }) => {
-  const [formData, setFormData] = useState({
-    name: "",
-    number: "",
-  });
+import { useDispatch } from "react-redux";
+import { addContact } from "../redux/actions";
+const ContactForm = () => {
+  // const [formData, setFormData] = useState({
+  //   name: "",
+  //   number: "",
+  // });
 
-  const handleSubmit = (evt) => {
-    evt.preventDefault();
+  // const handleSubmit = (evt) => {
+  //   evt.preventDefault();
 
-    // Отримайте функцію onAddContact через props
+  //   // Отримайте функцію onAddContact через props
 
-    if (contacts.some((contact) => contact.name === formData.name)) {
-      alert(`${formData.name} is already in the contact list`);
-      return;
-    }
+  //   if (contacts.some((contact) => contact.name === formData.name)) {
+  //     alert(`${formData.name} is already in the contact list`);
+  //     return;
+  //   }
 
-    const newContact = {
-      id: nanoid(),
-      name: formData.name,
-      number: formData.number,
-    };
+  //   const newContact = {
+  //     id: nanoid(),
+  //     name: formData.name,
+  //     number: formData.number,
+  //   };
 
-    onAddContact(newContact); // Викликайте onAddContact, якщо контакт додано
+  //   onAddContact(newContact); // Викликайте onAddContact, якщо контакт додано
 
-    setFormData({
-      name: "",
-      number: "",
-    });
-  };
+  //   setFormData({
+  //     name: "",
+  //     number: "",
+  //   });
+  // };
 
-  const handleChangeInput = (evt) => {
-    // Деструктуризація подій для отримання name та value зі змінної target
-    const { name, value } = evt.target;
+  // const handleChangeInput = (evt) => {
+  //   // Деструктуризація подій для отримання name та value зі змінної target
+  //   const { name, value } = evt.target;
 
-    // Використовуємо setFormData для оновлення стану
-    setFormData((prevData) => ({
-      // Використовуємо розпросторення для копіювання попереднього стану
-      ...prevData,
-      // Оновлюємо значення відповідного поля (name) з новим значенням (value)
-      [name]: value,
-    }));
+  //   // Використовуємо setFormData для оновлення стану
+  //   setFormData((prevData) => ({
+  //     // Використовуємо розпросторення для копіювання попереднього стану
+  //     ...prevData,
+  //     // Оновлюємо значення відповідного поля (name) з новим значенням (value)
+  //     [name]: value,
+  //   }));
+  // };
+
+  const dispatch = useDispatch();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const name = form.elements.name.value;
+    const number = form.elements.number.value; // Отримуємо значення number з форми
+    console.log(form);
+    dispatch(addContact({ name, number })); // Передаємо об'єкт зі значеннями name та number до екшена
+    form.reset();
   };
 
   return (
@@ -55,8 +69,8 @@ const ContactForm = ({ contacts, onAddContact }) => {
           name="name"
           required
           placeholder="Name"
-          value={formData.name}
-          onChange={handleChangeInput}
+          // value={name}
+          // onChange={handleChangeInput}
         />
         <p>Number</p>
         <input
@@ -65,8 +79,8 @@ const ContactForm = ({ contacts, onAddContact }) => {
           name="number"
           required
           placeholder="Number"
-          value={formData.number}
-          onChange={handleChangeInput}
+          // value={formData.number}
+          // onChange={handleChangeInput}
         />
         <button type="submit" className={css.form_button}>
           Add contact
