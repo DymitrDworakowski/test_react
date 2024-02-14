@@ -17,3 +17,10 @@ export const deleteContact = (contactId) => {
     payload: contactId,
   };
 };
+
+export const findContact = (value) => {
+  return {
+    type: "contacts/findContact",
+    payload: value,
+  };
+};
