@@ -2,6 +2,7 @@ import "./App.css";
 import ContactForm from "./components/ContactForm";
 import ContactsList from "./components/ContactsList";
 import Filter from "./components/Filter";
+import SimpleReactCalendar from 'simple-react-calendar';
 
 const App = () => {
   return (
@@ -13,6 +14,7 @@ const App = () => {
         <Filter />
         <ContactsList />
       </div>
+      <SimpleReactCalendar activeMonth={new Date()} />
     </section>
   );
 };

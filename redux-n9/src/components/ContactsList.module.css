@@ -13,6 +13,10 @@ li {
   display: flex;
   justify-content: center;
   align-items: center;
+  font-family: 'Comic Sans MS', cursive; /* Використовуємо шрифт, що схожий на рукопис */
+  font-size: 18px; /* Розмір шрифту */
+  letter-spacing: 1px; /* Відстань між літерами */
+  line-height: 1.5; /* Відступ між рядками */
 }
 .delete_button {
   background-color: red;
