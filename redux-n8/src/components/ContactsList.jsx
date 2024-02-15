@@ -8,13 +8,20 @@ const ContactsList = () => {
   const dispatch = useDispatch();
   const contacts = useSelector(getContacts);
   const filter = useSelector(getFilter);
-console.log(filter)
-  const filteredContacts = contacts.filter(
-    (contact) =>
-      contact.name.toLowerCase().includes(filter.toLowerCase()) ||
-      contact.number.toLowerCase().includes(filter.toLowerCase())
-  );
 
+  const filteredContacts = 
+    contacts.filter(
+        (contact) =>
+          contact.name.toLowerCase().includes(filter.toLowerCase()) ||
+          contact.number.toLowerCase().includes(filter.toLowerCase())
+      );
+    
+  
+
+
+  
+console.log(contacts.map(({number,name,id}) => [number,name,id]));
+  
   const handleDelete = (id) => dispatch(deleteContact(id));
 
   return (

@@ -1,16 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const filterInitialState = ""; // Додай поле для зберігання значення фільтра;
+const filterInitialState = ""; // Початкове значення фільтра
 
 const filterSlice = createSlice({
   name: "filter",
   initialState: filterInitialState,
   reducers: {
     findContact: (state, action) => {
-      return {
-        ...state,
-        filter: action.payload, // Оновлюємо значення фільтра відповідно до переданого значення
-      };
+      // Оновлюємо значення фільтра без зайвого обгортання в об'єкт
+      return action.payload;
     },
   },
 });
