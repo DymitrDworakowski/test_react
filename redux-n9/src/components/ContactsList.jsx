@@ -18,7 +18,7 @@ const ContactsList = () => {
   const handleDelete = (id) => dispatch(deleteContact(id));
 
   return (
-    <div>
+    <div className={css.div_list}>
       {filteredContacts.map(({ name, number, id }) => (
         <ul className={css.list} key={id}>
           <li>
