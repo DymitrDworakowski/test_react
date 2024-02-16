@@ -5,19 +5,26 @@ h1,h2{
   transform: perspective(80px) rotateY(5deg) rotate(-10deg) skew(10deg);
 }
 section {
-  display: block;
+  display: grid;
   padding: 50px;
+  justify-content: center;
   /* background-image: url('../img/phonebook_back.jpg'); */
   background-color: bisque;
-  background-size: contain;
+  /* background-size: contain;
   background-position: top center;
   background-repeat: no-repeat;
-  background-attachment: scroll;
+  background-attachment: scroll; */
 }
 .div_contact {
+  
   display: flex;
 
   flex-direction: column;
+}
+.div_calendar{
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
 }
 .calendar {
   

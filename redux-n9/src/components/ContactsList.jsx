@@ -24,6 +24,7 @@ const ContactsList = () => {
           <li>
             {name} : {number}
           </li>
+          <li>
           <button
             type="delete"
             onClick={() => handleDelete(id)} // Передаємо id контакту до handleDelete
@@ -31,6 +32,7 @@ const ContactsList = () => {
           >
             Delete
           </button>
+          </li>
         </ul>
       ))}
     </div>

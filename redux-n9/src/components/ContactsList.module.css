@@ -1,17 +1,24 @@
+.div_list{
+  /* transform: perspective(90px) rotateY(5deg) rotate(-10deg) skew(8deg); */
+  display: block;
+  width: 500px;
+  height: 500px;
+  border: 2px solid black;
+  overflow: auto;
+}
+
 .list {
   display: flex;
   justify-content: center;
   padding: 0;
   
 }
-.div_list{
-  transform: perspective(90px) rotateY(5deg) rotate(-10deg) skew(8deg);
-}
+
 
 li {
   list-style-type: none;
-  margin: 10px;
-  padding: 10px;
+  margin: 5px;
+  padding: 5px;
   
   font-family: Dancing Script, sans-serif; /* Шрифт тексту */
   font-size: 20px; /* Розмір шрифту тексту */
@@ -33,7 +40,7 @@ li {
   transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
   outline: none;
   border-radius: 10px;
-  margin: 10px;
+  
 }
 .delete_button:hover{
   box-shadow: 5px 5px 8px 2px #667bd646;

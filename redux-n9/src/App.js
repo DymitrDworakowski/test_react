@@ -14,7 +14,9 @@ const App = () => {
         <Filter />
         <ContactsList />
       </div>
+      <div className="div_calendar" >
       <SimpleReactCalendar activeMonth={new Date()} />
+      </div>
     </section>
   );
 };
