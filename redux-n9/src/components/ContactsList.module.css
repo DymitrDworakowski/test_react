@@ -27,7 +27,7 @@ li {
 }
 .delete_button {
   background-color: red;
-  border: 2px solid black;
+  border: none;
   align-self: center;
   display: flex;
   justify-content: center;
@@ -45,4 +45,5 @@ li {
 .delete_button:hover{
   box-shadow: 5px 5px 8px 2px #667bd646;
   background-color: #b8b8b8;
+  border: none;
 }
