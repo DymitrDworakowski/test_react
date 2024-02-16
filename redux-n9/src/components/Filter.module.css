@@ -1,7 +1,7 @@
 .div_filter {
   display: flex;
-  flex-direction: column;
-  border-bottom: 2px solid black;
+  transform: perspective(80px) rotateY(5deg) rotate(-10deg) skew(10deg);
+  justify-content: center;
 }
 
 .p_filter {

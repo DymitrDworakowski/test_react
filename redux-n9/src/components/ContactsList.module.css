@@ -7,16 +7,11 @@ li {
   list-style-type: none;
   margin: 10px;
   padding: 10px;
-  border: 2px solid black;
-  border-radius: 10px;
-  width: 300px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-family: 'Comic Sans MS', cursive; /* Використовуємо шрифт, що схожий на рукопис */
-  font-size: 18px; /* Розмір шрифту */
-  letter-spacing: 1px; /* Відстань між літерами */
-  line-height: 1.5; /* Відступ між рядками */
+  transform: perspective(80px) rotateY(5deg) rotate(-10deg) skew(10deg);
+  font-family: Dancing Script, sans-serif; /* Шрифт тексту */
+  font-size: 20px; /* Розмір шрифту тексту */
+  color: #333; /* Колір тексту */
+  text-align: center; /* Вирівнює текст по центру */
 }
 .delete_button {
   background-color: red;
@@ -28,8 +23,14 @@ li {
   width: 80px;
   height: 40px;
   cursor: pointer;
+  transform: perspective(80px) rotateY(5deg) rotate(-10deg) skew(10deg);
+  
   transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
   outline: none;
   border-radius: 10px;
   margin: 10px;
+}
+.delete_button:hover{
+  box-shadow: 5px 5px 8px 2px #667bd646;
+  background-color: #b8b8b8;
 }
