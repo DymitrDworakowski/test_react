@@ -1,0 +1,108 @@
+h1,
+h2 {
+  display: flex;
+  justify-content: center;
+  font-family: Caveat, sans-serif; /* Шрифт тексту */
+  transform: perspective(80px) rotateY(5deg) rotate(-10deg) skew(10deg);
+}
+section {
+  display: grid;
+  padding: 50px;
+  justify-content: center;
+  /* background-image: url('../img/phonebook_back.jpg'); */
+  background-color: bisque;
+  /* background-size: contain;
+  background-position: top center;
+  background-repeat: no-repeat;
+  background-attachment: scroll; */
+}
+.div_contact {
+  display: flex;
+  flex-direction: column;
+}
+.div_calendar {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+}
+.calendar {
+  font-family: Caveat, sans-serif; /* Шрифт тексту */
+  font-size: 20px; /* Розмір шрифту тексту */
+  display: block;
+  width: 400px;
+  height: 400px;
+  flex-direction: column;
+  border: 2px solid black;
+  border-radius: 20px;
+}
+.calendar-month_header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+}
+.calendar-month_header_title {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+}
+.calendar-header_button {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+}
+.calendar-days_of_week {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+}
+.calendar-days_of_week_day {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border-bottom: solid 1px;
+}
+.calendar-month {
+  display: grid;
+
+  justify-content: center;
+
+  padding: 2px;
+}
+.calendar-week {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+}
+.calendar-day {
+  display: flex;
+  color: black;
+}
+.calendar-week-day {
+  border: none; /* Видаляємо рамку */
+  background: none; /* Видаляємо фон */
+  padding: 0; /* Встановлюємо відступи в 0 */
+  font-family: inherit; /* Використовуємо шрифт батьківського елемента */
+  font-size: inherit; /* Використовуємо розмір шрифту батьківського елемента */
+  color: inherit; /* Використовуємо колір тексту батьківського елемента */
+  cursor: auto; /* Змінюємо курсор при наведенні на кнопку */
+}
+.is-weekend {
+  color: green;
+}
+.is-today {
+  border: 1px solid #030303;
+  border-radius: 100px;
+  list-style-type: none;
+}
