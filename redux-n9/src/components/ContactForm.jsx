@@ -1,7 +1,7 @@
 import css from "./ContactForm.module.css";
 
 import { useDispatch } from "react-redux";
-import { addContact } from "../redux/contactsSlice";
+import { addContact } from "../redux/operations";
 
 const ContactForm = () => {
   const dispatch = useDispatch();
@@ -10,8 +10,8 @@ const ContactForm = () => {
     e.preventDefault();
     const form = e.target;
     const name = form.elements.name.value;
-    const number = form.elements.number.value; // Отримуємо значення number з форми
-    dispatch(addContact({ name, number })); // Передаємо об'єкт зі значеннями name та number до екшена
+    const phone = form.elements.phone.value; // Отримуємо значення number з форми
+    dispatch(addContact({ name, phone })); // Передаємо об'єкт зі значеннями name та number до екшена
     form.reset();
   };
 
@@ -30,9 +30,9 @@ const ContactForm = () => {
         <input
           className={css.input}
           type="tel"
-          name="number"
+          name="phone"
           required
-          placeholder="Number"
+          placeholder="hone"
         />
         <button type="submit" className={css.form_button}>
           Add contact

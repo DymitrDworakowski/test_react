@@ -1,7 +1,8 @@
-h1,h2{
+h1,
+h2 {
   display: flex;
   justify-content: center;
-  font-family: Dancing Script, sans-serif; /* Шрифт тексту */
+  font-family: Caveat, sans-serif; /* Шрифт тексту */
   transform: perspective(80px) rotateY(5deg) rotate(-10deg) skew(10deg);
 }
 section {
@@ -19,14 +20,13 @@ section {
   display: flex;
   flex-direction: column;
 }
-.div_calendar{
+.div_calendar {
   margin-top: 10px;
   display: flex;
   justify-content: center;
 }
 .calendar {
-  
-  font-family: Dancing Script, sans-serif; /* Шрифт тексту */
+  font-family: Caveat, sans-serif; /* Шрифт тексту */
   font-size: 20px; /* Розмір шрифту тексту */
   display: block;
   width: 400px;
@@ -41,7 +41,6 @@ section {
   justify-content: space-between;
   align-items: center;
   padding: 10px;
-  
 }
 .calendar-month_header_title {
   display: flex;
@@ -91,20 +90,19 @@ section {
   color: black;
 }
 .calendar-week-day {
-  
   border: none; /* Видаляємо рамку */
   background: none; /* Видаляємо фон */
   padding: 0; /* Встановлюємо відступи в 0 */
   font-family: inherit; /* Використовуємо шрифт батьківського елемента */
   font-size: inherit; /* Використовуємо розмір шрифту батьківського елемента */
   color: inherit; /* Використовуємо колір тексту батьківського елемента */
-  cursor:auto; /* Змінюємо курсор при наведенні на кнопку */
+  cursor: auto; /* Змінюємо курсор при наведенні на кнопку */
 }
 .is-weekend {
   color: green;
 }
 .is-today {
- border: 1px solid #030303;
- border-radius: 100px;
+  border: 1px solid #030303;
+  border-radius: 100px;
   list-style-type: none;
 }

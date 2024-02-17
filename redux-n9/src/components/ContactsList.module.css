@@ -1,8 +1,8 @@
-.div_list{
+.div_list {
   /* transform: perspective(90px) rotateY(5deg) rotate(-10deg) skew(8deg); */
-  
+
   width: 500px;
-  height: 400px ;
+  height: 400px;
   border: 2px solid black;
   overflow: auto;
 }
@@ -11,25 +11,22 @@
   display: flex;
   justify-content: center;
   padding: 0;
-  
 }
 
-
 li {
- 
   list-style-type: none;
-  width:300px;
+  width: 300px;
   margin: 5px;
   padding: 5px;
   border: 1px solid black;
-  font-family: Dancing Script, sans-serif; /* Шрифт тексту */
+  font-family: Caveat, sans-serif; /* Шрифт тексту */
   font-size: 20px; /* Розмір шрифту тексту */
   color: #333; /* Колір тексту */
   text-align: center; /* Вирівнює текст по центру */
 }
 
-.li_button{
-border: none;
+.li_button {
+  border: none;
 }
 .delete_button {
   background-color: red;
@@ -41,14 +38,12 @@ border: none;
   width: 80px;
   height: 40px;
   cursor: pointer;
-  
-  
+
   transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
   outline: none;
   border-radius: 10px;
-  
 }
-.delete_button:hover{
+.delete_button:hover {
   box-shadow: 5px 5px 8px 2px #667bd646;
   background-color: #b8b8b8;
   border: none;

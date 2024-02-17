@@ -2,9 +2,21 @@ import "./App.css";
 import ContactForm from "./components/ContactForm";
 import ContactsList from "./components/ContactsList";
 import Filter from "./components/Filter";
-import SimpleReactCalendar from 'simple-react-calendar';
+import SimpleReactCalendar from "simple-react-calendar";
+import { fetchContacts } from "./redux/operations";
+import { selectError, selectIsLoading } from "./redux/selectors";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
 
 const App = () => {
+  const dispatch = useDispatch();
+  const isLoading = useSelector(selectIsLoading);
+  const error = useSelector(selectError);
+
+  useEffect(() => {
+    dispatch(fetchContacts());
+  }, [dispatch]);
+
   return (
     <section>
       <h1>Phonebook</h1>
@@ -12,10 +24,11 @@ const App = () => {
       <h2>My Contacts</h2>
       <div className="div_contact">
         <Filter />
+        {isLoading && !error && <b>Request in progress...</b>}
         <ContactsList />
       </div>
-      <div className="div_calendar" >
-      <SimpleReactCalendar activeMonth={new Date()} />
+      <div className="div_calendar">
+        <SimpleReactCalendar activeMonth={new Date()} />
       </div>
     </section>
   );
