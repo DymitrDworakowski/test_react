@@ -16,9 +16,7 @@ section {
   background-attachment: scroll; */
 }
 .div_contact {
-  
   display: flex;
-
   flex-direction: column;
 }
 .div_calendar{
