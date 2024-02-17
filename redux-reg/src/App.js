@@ -1,4 +1,5 @@
 import "./App.css";
+import AuthNav from "./components/AuthNav";
 import ContactForm from "./components/ContactForm";
 import ContactsList from "./components/ContactsList";
 import Filter from "./components/Filter";
@@ -19,6 +20,7 @@ const App = () => {
 
   return (
     <section>
+      <AuthNav />
       <h1>Phonebook</h1>
       <ContactForm />
       <h2>My Contacts</h2>
