@@ -2,12 +2,12 @@ import css from "./ContactsList.module.css";
 
 import { useDispatch, useSelector } from "react-redux";
 import { deleteContact } from "../redux/contactsSlice";
-import { getContacts, getFilter } from "../redux/selectors";
+import { selectContacts, selectFilter } from "../redux/selectors";
 
 const ContactsList = () => {
   const dispatch = useDispatch();
-  const contacts = useSelector(getContacts);
-  const filter = useSelector(getFilter);
+  const contacts = useSelector(selectContacts);
+  const filter = useSelector(selectFilter);
 
   const filteredContacts = contacts.filter(
     (contact) =>
@@ -24,7 +24,6 @@ const ContactsList = () => {
           <li>
             {name} : {number}
           </li>
-          
           <button
             type="delete"
             onClick={() => handleDelete(id)} // Передаємо id контакту до handleDelete
@@ -32,7 +31,6 @@ const ContactsList = () => {
           >
             Delete
           </button>
-          
         </ul>
       ))}
     </div>
