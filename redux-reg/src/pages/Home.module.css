@@ -1,0 +1,8 @@
+.home_div {
+  background-image: url("../images/2");
+}
+.h1_home {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

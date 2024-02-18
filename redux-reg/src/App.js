@@ -1,9 +1,11 @@
 import "./App.css";
-import AuthNav from "./components/AuthNav";
-import ContactForm from "./components/ContactForm";
-import ContactsList from "./components/ContactsList";
-import Filter from "./components/Filter";
+import AuthNav from "./components/AuthNav/AuthNav";
+import ContactForm from "./components/ContactForm/ContactForm";
+import ContactsList from "./components/ContactList/ContactsList";
+import Filter from "./components/Filter/Filter";
 import SimpleReactCalendar from "simple-react-calendar";
+
+import { Routes, Route } from "react-router-dom";
 import { fetchContacts } from "./redux/operations";
 import { selectError, selectIsLoading } from "./redux/selectors";
 import { useDispatch, useSelector } from "react-redux";
@@ -20,18 +22,20 @@ const App = () => {
 
   return (
     <section>
-      <AuthNav />
-      <h1>Phonebook</h1>
-      <ContactForm />
-      <h2>My Contacts</h2>
-      <div className="div_contact">
-        <Filter />
-        {isLoading && !error && <b>Request in progress...</b>}
-        <ContactsList />
-      </div>
-      <div className="div_calendar">
-        <SimpleReactCalendar activeMonth={new Date()} />
-      </div>
+      <Routes>
+        <AuthNav />
+        <h1>Phonebook</h1>
+        <ContactForm />
+        <h2>My Contacts</h2>
+        <div className="div_contact">
+          <Filter />
+          {isLoading && !error && <b>Request in progress...</b>}
+          <ContactsList />
+        </div>
+        <div className="div_calendar">
+          <SimpleReactCalendar activeMonth={new Date()} />
+        </div>
+      </Routes>
     </section>
   );
 };
