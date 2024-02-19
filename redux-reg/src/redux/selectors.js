@@ -11,7 +11,6 @@ export const selectFilter = (state) => state.filter;
 export const selectFilterContacts = createSelector(
   [selectContacts, selectFilter],
   (items, filter) => {
-    console.log(items);
     // Перевірка, чи contacts є масивом
     if (!Array.isArray(items)) {
       // Якщо contacts не є масивом, поверніть порожній масив
@@ -22,7 +21,8 @@ export const selectFilterContacts = createSelector(
     const filteredContacts = items.filter(
       (contact) =>
         contact.name.toLowerCase().includes(filter.toLowerCase()) ||
-        contact.number.toLowerCase().includes(filter.toLowerCase())
+        contact.phone.toLowerCase().includes(filter.toLowerCase()) ||
+        contact.email.toLowerCase().includes(filter.toLowerCase())
     );
 
     return filteredContacts;

@@ -12,14 +12,14 @@ const ContactsList = () => {
 
   return (
     <div className={css.div_list}>
-      {contact.map(({ name, phone, id }) => (
-        <ul className={css.list} key={id}>
+      {contact.map(({ name, email, phone, _id }) => (
+        <ul className={css.list} key={_id}>
           <li>
-            {name} : {phone}
+            {name} : {phone},{email}
           </li>
           <button
             type="delete"
-            onClick={() => handleDelete(id)} // Передаємо id контакту до handleDelete
+            onClick={() => handleDelete(_id)} // Передаємо id контакту до handleDelete
             className={css.delete_button}
           >
             Delete

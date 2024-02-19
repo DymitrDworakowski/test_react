@@ -1,12 +1,10 @@
 .div_form {
-  height: 300px;
+  height: 400px;
   display: flex;
   justify-content: center;
   border: 2px solid black;
- 
 }
-.form{
-  
+.form {
 }
 
 input {
@@ -15,7 +13,6 @@ input {
   border-radius: 10px;
   padding: 10px;
   margin: 10px;
-  
 }
 .form_button {
   width: 100px;
@@ -28,11 +25,9 @@ input {
   color: #fff;
   cursor: pointer;
   transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
-  
 }
 
-.form_button:hover{
-  
+.form_button:hover {
   box-shadow: 5px 5px 8px 2px #667bd646;
   background-color: #b8b8b8;
   transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);

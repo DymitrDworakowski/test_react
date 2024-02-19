@@ -11,7 +11,9 @@ const ContactForm = () => {
     const form = e.target;
     const name = form.elements.name.value;
     const phone = form.elements.phone.value; // Отримуємо значення number з форми
-    dispatch(addContact({ name, phone })); // Передаємо об'єкт зі значеннями name та number до екшена
+    const email = form.elements.email.value;
+    console.log(email);
+    dispatch(addContact({ name, phone, email })); // Передаємо об'єкт зі значеннями name та number до екшена
     form.reset();
   };
 
@@ -26,14 +28,23 @@ const ContactForm = () => {
           required
           placeholder="Name"
         />
+        <p>Email</p>
+        <input
+          className={css.input}
+          type="email"
+          name="email"
+          required
+          placeholder="Email"
+        />
         <p>Number</p>
         <input
           className={css.input}
           type="tel"
           name="phone"
           required
-          placeholder="hone"
+          placeholder="phone"
         />
+
         <button type="submit" className={css.form_button}>
           Add contact
         </button>
