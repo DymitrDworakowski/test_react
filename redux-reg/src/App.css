@@ -16,10 +16,7 @@ section {
   background-repeat: no-repeat;
   background-attachment: scroll; */
 }
-.div_contact {
-  display: flex;
-  flex-direction: column;
-}
+
 .div_calendar {
   margin-top: 10px;
   display: flex;

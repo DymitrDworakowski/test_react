@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import css from "../pages/Contacts.module.css";
 
 import { Helmet } from "react-helmet";
 import ContactsList from "../components/ContactList/ContactsList";
@@ -26,7 +27,7 @@ export default function Tasks() {
       <h1>Phonebook</h1>
       <ContactForm />
       <h2>My Contacts</h2>
-      <div className="div_contact">
+      <div className={css.div_contact}>
         <Filter />
         {isLoading && <b>Request in progress...</b>}
         <ContactsList />
