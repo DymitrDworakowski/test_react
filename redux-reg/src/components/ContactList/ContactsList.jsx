@@ -15,7 +15,7 @@ const ContactsList = () => {
       {contact.map(({ name, email, phone, _id }) => (
         <ul className={css.list} key={_id}>
           <li>
-            {name} : {phone},{email}
+            {name} : {phone} E-mail: {email}
           </li>
           <button
             type="delete"
