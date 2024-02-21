@@ -89,18 +89,3 @@ export const refreshUser = createAsyncThunk(
     }
   }
 );
-
-
-export const edit = createAsyncThunk(
-  "auth/edit",
-  async (credentials, thunkAPI) => {
-    try {
-      const res = await axios.push("/users/edit", credentials);
-      // After successful registration, add the token to the HTTP header
-      setAuthHeader(res.data.token);
-      return res.data;
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
-    }
-  }
-);

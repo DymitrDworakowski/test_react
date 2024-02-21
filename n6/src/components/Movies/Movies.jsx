@@ -7,7 +7,6 @@ const Movies = () => {
   const location = useLocation();
   const formRef = useRef(null);
   const [searchFilms, setSearchFilms] = useState([]);
-  console.log(location);
   const [isLoading, setIsLoading] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
   const query = searchParams.get("query");

@@ -12,7 +12,7 @@ const MovieDetails = () => {
   // const navigate = useNavigate();
   const location = useLocation();
   const backLinkHref = useRef(location.state?.from ?? "/");
-  console.log(backLinkHref);
+
 
   const MoviesDetails = useCallback(async () => {
     setIsLoading(true);
