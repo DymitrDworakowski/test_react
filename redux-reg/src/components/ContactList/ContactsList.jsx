@@ -17,7 +17,7 @@ const ContactsList = () => {
           <li>
             {name} : {phone} E-mail: {email}
           </li>\
-          <NavLink to={`cast`}>
+          <NavLink to={`edit`}>
           <button
             type="edit"
             className={css.edite_button}
