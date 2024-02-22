@@ -12,7 +12,7 @@ const ContactForm = () => {
     const name = form.elements.name.value;
     const phone = form.elements.phone.value; // Отримуємо значення number з форми
     const email = form.elements.email.value;
-    console.log(email);
+
     dispatch(addContact({ name, phone, email })); // Передаємо об'єкт зі значеннями name та number до екшена
     form.reset();
   };

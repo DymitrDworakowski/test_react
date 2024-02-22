@@ -1,9 +1,9 @@
-import css from "./ContactForm.module.css";
+import css from "./EditContact.module.css";
 
 import { useDispatch } from "react-redux";
 import { editContact } from "../../redux/contacts/operations";
 
-const EditContact = () => {
+const EditContact = ({ name, email, phone, id }) => {
   const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
@@ -12,7 +12,7 @@ const EditContact = () => {
     const name = form.elements.name.value;
     const phone = form.elements.phone.value; // Отримуємо значення number з форми
     const email = form.elements.email.value;
-    dispatch(editContact({ name, phone, email })); // Передаємо об'єкт зі значеннями name та number до екшена
+    dispatch(editContact({ name, phone, email, id })); // Передаємо об'єкт зі значеннями name та number до екшена
     form.reset();
   };
 
@@ -25,6 +25,7 @@ const EditContact = () => {
           type="text"
           name="name"
           placeholder="Name"
+          defaultValue={name}
         />
         <p>Email</p>
         <input
@@ -32,17 +33,19 @@ const EditContact = () => {
           type="email"
           name="email"
           placeholder="Email"
+          defaultValue={email}
         />
         <p>Number</p>
         <input
           className={css.input}
           type="tel"
           name="phone"
-          placeholder="phone"
+          placeholder="Phone"
+          defaultValue={phone}
         />
 
         <button type="submit" className={css.form_button}>
-        Сonfirm changes
+          Сonfirm changes
         </button>
       </form>
     </div>

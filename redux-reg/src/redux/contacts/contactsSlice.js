@@ -1,5 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchContacts, addContact, deleteContact } from "./operations";
+import {
+  fetchContacts,
+  addContact,
+  deleteContact,
+  editContact,
+} from "./operations";
 
 const handlePending = (state) => {
   state.isLoading = true;
@@ -42,7 +47,21 @@ const contactsSlice = createSlice({
         );
         state.items.splice(index, 1);
       })
-      .addCase(deleteContact.rejected, handleRejected);
+      .addCase(deleteContact.rejected, handleRejected)
+      .addCase(editContact.pending, handlePending)
+      .addCase(editContact.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.error = null;
+        const updatedContact = action.payload; // Оновлений контакт, який повернув сервер
+        const index = state.items.findIndex(
+          (contact) => contact.id === updatedContact.id
+        );
+        if (index !== -1) {
+          // Якщо контакт існує у списку, замініть його оновленим контактом
+          state.items[index] = updatedContact;
+        }
+      })
+      .addCase(editContact.rejected, handleRejected);
   },
 });
 

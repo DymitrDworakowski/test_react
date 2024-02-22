@@ -1,7 +1,7 @@
 import axios from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-axios.defaults.baseURL = "http://localhost:8000/";
+axios.defaults.baseURL = "https://backend-contacts-xe13.onrender.com";
 
 // Утіліта до додавання JWT
 const setAuthHeader = (token) => {

@@ -10,9 +10,6 @@ export const UserMenu = () => {
 
   return (
     <div className={css.wrapper}>
-      <NavLink className={css.link} to="/profile">
-        Edit Profile
-      </NavLink>
       <p className={css.username}>Welcome , {user.email}</p>
       <button type="button" onClick={() => dispatch(logOut())}>
         Logout

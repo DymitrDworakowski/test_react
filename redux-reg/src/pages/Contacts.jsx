@@ -17,7 +17,7 @@ export default function Tasks() {
 
   useEffect(() => {
     dispatch(fetchContacts());
-  }, [dispatch]);
+  }, [dispatch,]);
 
   return (
     <>
