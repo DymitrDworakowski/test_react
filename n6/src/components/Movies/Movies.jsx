@@ -22,7 +22,6 @@ const Movies = () => {
     const searchItem = formRef.current.elements.searchText.value;
     onSubmit(searchItem);
     formRef.current.reset();
-    
   };
 
   // getByName: Ця асинхронна функція викликає функцію getByNameMovies з параметром query (клічка пошуку).
@@ -30,32 +29,35 @@ const Movies = () => {
   const getByName = useCallback(async () => {
     try {
       setIsLoading(true);
-      const response = await getByNameMovies({query,page});
+      const response = await getByNameMovies({ query, page });
 
       if (response.length > 0) {
         // Використовуйте дефолтний стан, якщо стан movies порожній
         setSearchFilms((prevFilms) => [...prevFilms, ...response]);
-        
+
         setHasMoreMovies(true);
       } else {
         setHasMoreMovies(false); // Встановлення на false, якщо результатів не залишилося
       }
     } catch (error) {
       console.error("Error fetching movies:", error);
-          } finally {
+    } finally {
       setIsLoading(false);
-      
     }
   }, [setSearchFilms, setHasMoreMovies, query, page]);
 
   // useEffect: Цей ефект викликається при зміні query або функції getByName.
   // Якщо значення query не порожнє, він викликає функцію getByName.
   useEffect(() => {
-    if (query) {
-      getByName();
+    if(searchFilms.length > 0){
+      return;
+    } else {
+      if (query) {
+        getByName();
+      }
     }
-  }, [query, getByName]);
-console.log(query)
+  }, [query, getByName, searchFilms]);
+  console.log(query);
   // onSubmit: Ця функція викликається при відправці форми пошуку.
   // Вона перевіряє, чи не порожній введений текст та встановлює його в якості значення query.
   const onSubmit = (searchItem) => {
@@ -63,18 +65,21 @@ console.log(query)
       alert("Input is empty");
       return;
     }
-    setPage(1);setSearchParams({ query: searchItem });
+    setPage(1);
+    setSearchParams((prevParams) => ({
+      ...prevParams,
+      query: searchItem,
+    }));
   };
 
   const handleClick = () => {
     setPage((prevPage) => prevPage + 1);
   };
 
-
   const http = "https://image.tmdb.org/t/p/w200";
   return (
     <div className={css.div_movies}>
-      <form ref={formRef} className={css.form} onSubmit={handleSubmit} >
+      <form ref={formRef} className={css.form} onSubmit={handleSubmit}>
         <input
           className="input"
           name="searchText"
@@ -92,16 +97,20 @@ console.log(query)
         <ul className={css.movies}>
           {searchFilms.map(({ id, title, release_date, backdrop_path }) => (
             <li className={css.movie} key={id}>
-            <Link to={`/movies/${id}`}  state={{ from: location }}>
+              <Link to={`/movies/${id}`} state={{ from: location }}>
                 <h3>{title}</h3>
-                <img src={`${http}${backdrop_path}`} alt={title} className={css.movie_img} />
+                <img
+                  src={`${http}${backdrop_path}`}
+                  alt={title}
+                  className={css.movie_img}
+                />
                 <p>{release_date}</p>
-            </Link>
+              </Link>
             </li>
           ))}
         </ul>
       )}
-       {hasMoreMovies ? (
+      {hasMoreMovies ? (
         <Button onClick={handleClick} />
       ) : (
         <p>No more movies to load.</p>
