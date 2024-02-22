@@ -2,6 +2,7 @@ import React, { useCallback, useRef, useEffect, useState } from "react";
 import { getByNameMovies } from "../../api/movie";
 import { Link, useSearchParams, useLocation } from "react-router-dom";
 import Loader from "../Loader/Loader";
+import css from "./Movies.module.css";
 
 const Movies = () => {
   const location = useLocation();
@@ -57,8 +58,8 @@ const Movies = () => {
   };
   const http = "https://image.tmdb.org/t/p/w200";
   return (
-    <div>
-      <form ref={formRef} className="form" onSubmit={handleSubmit}>
+    <div className={css.div_movies}>
+      <form ref={formRef} className={css.form} onSubmit={handleSubmit} >
         <input
           className="input"
           name="searchText"
@@ -67,21 +68,21 @@ const Movies = () => {
           defaultValue={query || ""}
           placeholder="Search movies"
         />
-        <button type="submit" className="button">
+        <button type="submit" className={css.button}>
           <span className="button-label">Search</span>
         </button>
       </form>
       {isLoading && <Loader />}
       {searchFilms.length > 0 && (
-        <ul>
+        <ul className={css.movies}>
           {searchFilms.map(({ id, title, release_date, backdrop_path }) => (
+            <li className={css.movie}>
             <Link to={`/movies/${id}`} key={id} state={{ from: location }}>
-              <li>
                 <h3>{title}</h3>
-                <img src={`${http}${backdrop_path}`} alt={title} />
+                <img src={`${http}${backdrop_path}`} alt={title} className={css.movie_img} />
                 <p>{release_date}</p>
-              </li>
             </Link>
+            </li>
           ))}
         </ul>
       )}
