@@ -52,13 +52,15 @@ const contactsSlice = createSlice({
       .addCase(editContact.fulfilled, (state, action) => {
         state.isLoading = false;
         state.error = null;
-        const updatedContact = action.payload; // Оновлений контакт, який повернув сервер
+        const updatedContact = action.payload;
+        console.log(updatedContact) // Оновлений контакт, який повернув сервер
         const index = state.items.findIndex(
           (contact) => contact.id === updatedContact.id
         );
         if (index !== -1 ) {
           // Якщо контакт існує у списку, замініть його оновленим контактом
-          state.items[index] = updatedContact;
+          state.items.splice(index, 1,updatedContact);
+        
         }
       })
       .addCase(editContact.rejected, handleRejected);
