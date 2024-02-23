@@ -1,24 +1,26 @@
 import css from "./ContactsList.module.css";
-import Modal from "@mui/material/Modal";
-import { useState, useEffect,useCallback } from "react";
+
+import { useState, useEffect, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteContact, editContact } from "../../redux/contacts/operations";
 import { selectFilterContacts } from "../../redux/selectors";
 import { fetchContacts } from "../../redux/contacts/operations";
-
+import ContactModal from "../ContactModal/ContactModal";
 const ContactsList = () => {
   const dispatch = useDispatch();
   const contacts = useSelector(selectFilterContacts);
   const [openId, setOpenId] = useState(null);
   const [editingContactId, setEditingContactId] = useState(""); // Додано стан для зберігання id редагованого контакту
 
-  const handleDelete = useCallback((id) => {
-    dispatch(deleteContact(id));
-    setTimeout(() => {
-      dispatch(fetchContacts());
-        }, 100);
-  }, [dispatch]);
-
+  const handleDelete = useCallback(
+    (id) => {
+      dispatch(deleteContact(id));
+      setTimeout(() => {
+        dispatch(fetchContacts());
+      }, 100);
+    },
+    [dispatch]
+  );
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -30,10 +32,9 @@ const ContactsList = () => {
     dispatch(editContact({ name, phone, email, id }));
     form.reset();
     handleClose();
-setTimeout(() => {
-  dispatch(fetchContacts());
+    setTimeout(() => {
+      dispatch(fetchContacts());
     }, 100);
-    
   };
 
   const handleOpen = (id) => {
@@ -45,7 +46,7 @@ setTimeout(() => {
 
   useEffect(() => {
     dispatch(fetchContacts());
-  }, [dispatch,handleDelete]);
+  }, [dispatch, handleDelete]);
 
   return (
     <div className={css.div_list}>
@@ -68,44 +69,14 @@ setTimeout(() => {
           >
             Delete
           </button>
-          <Modal
+          <ContactModal
             open={openId === _id}
-            onClose={handleClose}
-            aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description"
-          >
-            <div className={css.div_form}>
-              <form className={css.form} onSubmit={handleSubmit}>
-                <p>Name</p>
-                <input
-                  className={css.input}
-                  type="text"
-                  name="name"
-                  placeholder="Name"
-                  defaultValue={name}
-                />
-                <p>Email</p>
-                <input
-                  className={css.input}
-                  type="email"
-                  name="email"
-                  placeholder="Email"
-                  defaultValue={email}
-                />
-                <p>Number</p>
-                <input
-                  className={css.input}
-                  type="tel"
-                  name="phone"
-                  placeholder="Phone"
-                  defaultValue={phone}
-                />
-                <button type="submit" className={css.form_button}>
-                  Confirm changes
-                </button>
-              </form>
-            </div>
-          </Modal>
+            handleClose={handleClose}
+            handleSubmit={handleSubmit}
+            name={name}
+            email={email}
+            phone={phone}
+          />
         </ul>
       ))}
     </div>
