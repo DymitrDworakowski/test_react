@@ -56,7 +56,7 @@ const contactsSlice = createSlice({
         const index = state.items.findIndex(
           (contact) => contact.id === updatedContact.id
         );
-        if (index !== -1) {
+        if (index !== -1 ) {
           // Якщо контакт існує у списку, замініть його оновленим контактом
           state.items[index] = updatedContact;
         }

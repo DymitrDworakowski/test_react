@@ -1,18 +1,16 @@
 import css from "./ContactsList.module.css";
-
 import Modal from "@mui/material/Modal";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteContact, editContact } from "../../redux/contacts/operations";
 import { selectFilterContacts } from "../../redux/selectors";
+import { fetchContacts } from "../../redux/contacts/operations";
 
 const ContactsList = () => {
   const dispatch = useDispatch();
   const contacts = useSelector(selectFilterContacts);
   const [openId, setOpenId] = useState(null);
   const [editingContactId, setEditingContactId] = useState(""); // Додано стан для зберігання id редагованого контакту
-
-
 
   const handleDelete = (id) => dispatch(deleteContact(id));
 
@@ -23,23 +21,28 @@ const ContactsList = () => {
     const phone = form.elements.phone.value;
     const email = form.elements.email.value;
     const id = editingContactId;
-    console.log(id);
-    dispatch(editContact({ name, phone, email, id })); // Використовуємо id редагованого контакту для оновлення
+    dispatch(editContact({ name, phone, email, id }));
     form.reset();
-    handleClose(); // Закриття модального вікна після відправки форми
+    handleClose();
     
   };
 
   const handleOpen = (id) => {
     setOpenId(id);
-    setEditingContactId(id); // Встановлення id редагованого контакту при відкриванні модального вікна
+    setEditingContactId(id);
   };
 
   const handleClose = () => setOpenId(null);
+
+  useEffect(() => {
+    dispatch(fetchContacts());
+  }, [dispatch]);
+
+
   return (
     <div className={css.div_list}>
-      {contacts.map(({ name, email, phone, _id }) => (
-        <ul className={css.list} key={_id}>
+      {contacts.map(({ name, email, phone, _id }, index) => (
+        <ul className={css.list} key={`${_id}-${index}`}>
           <li>
             {name} : {phone} E-mail: {email}
           </li>

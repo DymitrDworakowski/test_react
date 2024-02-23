@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { NavLink } from "react-router-dom";
+
 import { logOut } from "../../redux/auth/operations";
 import { useAuth } from "../../hooks/useAuth";
 import css from "./UserMenu.module.css";

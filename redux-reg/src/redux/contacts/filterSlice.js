@@ -8,7 +8,7 @@ const filterSlice = createSlice({
   reducers: {
     findContact: (state, action) => {
       // Оновлюємо значення фільтра без зайвого обгортання в об'єкт
-      return action.payload;
+      return (state = action.payload);
     },
   },
 });
