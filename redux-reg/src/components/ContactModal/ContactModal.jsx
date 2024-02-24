@@ -1,5 +1,6 @@
 import Modal from "@mui/material/Modal";
 import React from "react";
+import css from "./ContactModal.module.css";
 
 const ContactModal = React.memo(
   ({ open, handleClose, handleSubmit, name, email, phone }) => {
@@ -9,8 +10,9 @@ const ContactModal = React.memo(
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
+        className={css.modalOverlay}
       >
-        <div>
+        <div className={css.modalContent}>
           <form onSubmit={handleSubmit}>
             <p>Name</p>
             <input

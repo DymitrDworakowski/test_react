@@ -1,5 +1,13 @@
 import css from "./ContactsList.module.css";
 
+import Button from "@mui/material/Button";
+import LoadingButton from "@mui/lab/LoadingButton";
+import Select from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
+import DeleteIcon from "@mui/icons-material/Delete";
+
+import { selectIsLoading } from "../../redux/selectors";
+
 import { useState, useEffect, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -17,6 +25,7 @@ const ContactsList = () => {
   const [openId, setOpenId] = useState(null);
   const [editingContactId, setEditingContactId] = useState(""); // Додано стан для зберігання id редагованого контакту
   const [sortBy, setSortBy] = useState("");
+  const isLoading = useSelector(selectIsLoading);
 
   const handleDelete = useCallback(
     (id) => {
@@ -68,7 +77,7 @@ const ContactsList = () => {
     } else if (sortBy === "byBA") {
       return [...contacts].sort((a, b) => b.name.localeCompare(a.name)); // Сортування B-A
     } else if (sortBy === "by12") {
-      return [...contacts].sort((a, b) => a.id - b.id); // Сортування за порядком 1-2 (за id)
+      return [...contacts].sort((a, b) => a.phone - b.phone); // Сортування за порядком 1-2 (за id)
     } else {
       return contacts; // Повернення незміненого масиву контактів, якщо сортування не вибрано
     }
@@ -93,12 +102,18 @@ const ContactsList = () => {
 
   return (
     <div className={css.div_list}>
-      <select name="sort" onChange={handleChange}>
-        <option value="none">...</option>
-        <option value="byAB">Sort by A-B</option>
-        <option value="byBA">Sort B-A</option>
-        <option value="by12">Sort 1-2</option>
-      </select>
+      <Select
+        labelId="demo-simple-select-label"
+        id="demo-simple-select"
+        value={sortBy}
+        label="Sort by..."
+        onChange={handleChange}
+      >
+        <MenuItem value="none">...</MenuItem>
+        <MenuItem value="byAB">Sort name by A-B</MenuItem>
+        <MenuItem value="byBA">Sort name B-A</MenuItem>
+        <MenuItem value="by12">Sort phone number</MenuItem>
+      </Select>
       {sortedContacts.map(({ name, email, phone, _id, favorite }, index) => (
         <ul className={css.list} key={`${_id}-${index}`}>
           <li>Name: {name}</li>
@@ -115,20 +130,23 @@ const ContactsList = () => {
             checked={favorite}
             onChange={(e) => handleChangeFavorite(_id, e.target.checked)}
           />
-          <button
+          <Button
+            variant="contained"
             type="edit"
-            className={css.edite_button}
             onClick={() => handleOpen(_id)}
           >
             Edit
-          </button>
-          <button
-            type="delete"
+          </Button>
+          <LoadingButton
+            size="small"
             onClick={() => handleDelete(_id)}
-            className={css.delete_button}
+            loadingPosition="end"
+            variant="outlined"
+            loading={isLoading}
+            endIcon={<DeleteIcon />}
           >
-            Delete
-          </button>
+            <span>Delete</span>
+          </LoadingButton>
           <ContactModal
             open={openId === _id}
             handleClose={handleClose}
