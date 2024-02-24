@@ -2,7 +2,11 @@ import css from "./ContactsList.module.css";
 
 import { useState, useEffect, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteContact, editContact } from "../../redux/contacts/operations";
+import {
+  deleteContact,
+  editContact,
+  statusFavorite,
+} from "../../redux/contacts/operations";
 import { selectFilterContacts } from "../../redux/selectors";
 import { fetchContacts } from "../../redux/contacts/operations";
 import ContactModal from "../ContactModal/ContactModal";
@@ -11,7 +15,8 @@ const ContactsList = () => {
   const contacts = useSelector(selectFilterContacts);
   const [openId, setOpenId] = useState(null);
   const [editingContactId, setEditingContactId] = useState(""); // Додано стан для зберігання id редагованого контакту
-
+  const [favorite, setFavorite] = useState(false);
+  console.log(favorite);
   const handleDelete = useCallback(
     (id) => {
       dispatch(deleteContact(id));
@@ -37,6 +42,14 @@ const ContactsList = () => {
     }, 100);
   };
 
+  const handleChangeFavorite = (id, favorite) => {
+    setFavorite(favorite);
+    dispatch(statusFavorite({ favorite, id }));
+    setTimeout(() => {
+      dispatch(fetchContacts());
+    }, 100);
+  };
+
   const handleOpen = (id) => {
     setOpenId(id);
     setEditingContactId(id);
@@ -50,11 +63,22 @@ const ContactsList = () => {
 
   return (
     <div className={css.div_list}>
-      {contacts.map(({ name, email, phone, _id }, index) => (
+      {contacts.map(({ name, email, phone, _id, favorite }, index) => (
         <ul className={css.list} key={`${_id}-${index}`}>
           <li>Name: {name}</li>
           <li>Phone: {phone}</li>
           <li>E-mail: {email}</li>
+          <span
+            className={`${css.favorites} ${
+              favorite ? css.isTrue : css.isFalse
+            }`}
+          ></span>
+          <input
+            className={css.checked}
+            type="checkbox"
+            checked={favorite} // Додайте це
+            onChange={(e) => handleChangeFavorite(_id, e.target.checked)} // Змініть тут
+          />
           <button
             type="edit"
             className={css.edite_button}

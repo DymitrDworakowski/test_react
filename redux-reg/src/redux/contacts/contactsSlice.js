@@ -4,6 +4,7 @@ import {
   addContact,
   deleteContact,
   editContact,
+  statusFavorite,
 } from "./operations";
 
 const handlePending = (state) => {
@@ -52,18 +53,31 @@ const contactsSlice = createSlice({
       .addCase(editContact.fulfilled, (state, action) => {
         state.isLoading = false;
         state.error = null;
-        const updatedContact = action.payload;
-        console.log(updatedContact) // Оновлений контакт, який повернув сервер
+        const updatedContact = action.payload; // Оновлений контакт, який повернув сервер
         const index = state.items.findIndex(
           (contact) => contact.id === updatedContact.id
         );
-        if (index !== -1 ) {
+        if (index !== -1) {
           // Якщо контакт існує у списку, замініть його оновленим контактом
-          state.items.splice(index, 1,updatedContact);
-        
+          state.items.splice(index, 1, updatedContact);
         }
       })
-      .addCase(editContact.rejected, handleRejected);
+      .addCase(editContact.rejected, handleRejected)
+      .addCase(statusFavorite.pending, handlePending)
+      .addCase(statusFavorite.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.error = null;
+        const statusContact = action.payload;
+        console.log(statusContact); // Оновлений контакт, який повернув сервер
+        const index = state.items.findIndex(
+          (contact) => contact.id === statusContact.id
+        );
+        if (index !== -1) {
+          // Якщо контакт існує у списку, замініть його оновленим контактом
+          state.items.splice(index, 1, statusContact);
+        }
+      })
+      .addCase(statusFavorite.rejected, handleRejected);
   },
 });
 
