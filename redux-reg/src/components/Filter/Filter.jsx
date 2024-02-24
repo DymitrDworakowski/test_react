@@ -1,5 +1,6 @@
 import css from "./Filter.module.css";
 import { useDispatch } from "react-redux";
+import { useState } from "react";
 import { findContact } from "../../redux/contacts/filterSlice";
 
 const Filter = () => {
@@ -11,6 +12,7 @@ const Filter = () => {
 
     dispatch(findContact(value));
   };
+
   return (
     <div className={css.div_filter}>
       <p className={css.p_filter}>Find contact by name</p>

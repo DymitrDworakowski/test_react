@@ -10,13 +10,14 @@ import {
 import { selectFilterContacts } from "../../redux/selectors";
 import { fetchContacts } from "../../redux/contacts/operations";
 import ContactModal from "../ContactModal/ContactModal";
+
 const ContactsList = () => {
   const dispatch = useDispatch();
   const contacts = useSelector(selectFilterContacts);
   const [openId, setOpenId] = useState(null);
   const [editingContactId, setEditingContactId] = useState(""); // Додано стан для зберігання id редагованого контакту
-  const [favorite, setFavorite] = useState(false);
-  console.log(favorite);
+  const [sortBy, setSortBy] = useState("");
+
   const handleDelete = useCallback(
     (id) => {
       dispatch(deleteContact(id));
@@ -43,7 +44,6 @@ const ContactsList = () => {
   };
 
   const handleChangeFavorite = (id, favorite) => {
-    setFavorite(favorite);
     dispatch(statusFavorite({ favorite, id }));
     setTimeout(() => {
       dispatch(fetchContacts());
@@ -57,13 +57,51 @@ const ContactsList = () => {
 
   const handleClose = () => setOpenId(null);
 
+  const handleChange = (e) => {
+    const value = e.target.value;
+    setSortBy(value);
+  };
+
+  const sortContacts = (contacts) => {
+    if (sortBy === "byAB") {
+      return [...contacts].sort((a, b) => a.name.localeCompare(b.name)); // Сортування A-B
+    } else if (sortBy === "byBA") {
+      return [...contacts].sort((a, b) => b.name.localeCompare(a.name)); // Сортування B-A
+    } else if (sortBy === "by12") {
+      return [...contacts].sort((a, b) => a.id - b.id); // Сортування за порядком 1-2 (за id)
+    } else {
+      return contacts; // Повернення незміненого масиву контактів, якщо сортування не вибрано
+    }
+
+    // switch (sortBy) {
+    //   case "byAB":
+    //     return [...contacts].sort((a, b) => a.name.localeCompare(b.name)); // Сортування A-B
+    //   case "byBA":
+    //     return [...contacts].sort((a, b) => b.name.localeCompare(a.name)); // Сортування B-A
+    //   case "by12":
+    //     return [...contacts].sort((a, b) => a.id - b.id); // Сортування за порядком 1-2 (за id)
+    //   default:
+    //     return contacts; // Повернення незміненого масиву контактів, якщо сортування не вибрано
+    // }
+  };
+
+  const sortedContacts = sortContacts(contacts);
+
   useEffect(() => {
     dispatch(fetchContacts());
   }, [dispatch, handleDelete]);
 
   return (
     <div className={css.div_list}>
-      {contacts.map(({ name, email, phone, _id, favorite }, index) => (
+      <select name="sort" onChange={handleChange}>
+        <option value="none" disabled>
+          ...
+        </option>
+        <option value="byAB">Sort by A-B</option>
+        <option value="byBA">Sort B-A</option>
+        <option value="by12">Sort 1-2</option>
+      </select>
+      {sortedContacts.map(({ name, email, phone, _id, favorite }, index) => (
         <ul className={css.list} key={`${_id}-${index}`}>
           <li>Name: {name}</li>
           <li>Phone: {phone}</li>
@@ -76,8 +114,8 @@ const ContactsList = () => {
           <input
             className={css.checked}
             type="checkbox"
-            checked={favorite} // Додайте це
-            onChange={(e) => handleChangeFavorite(_id, e.target.checked)} // Змініть тут
+            checked={favorite}
+            onChange={(e) => handleChangeFavorite(_id, e.target.checked)}
           />
           <button
             type="edit"
