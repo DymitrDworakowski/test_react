@@ -94,9 +94,7 @@ const ContactsList = () => {
   return (
     <div className={css.div_list}>
       <select name="sort" onChange={handleChange}>
-        <option value="none" disabled>
-          ...
-        </option>
+        <option value="none">...</option>
         <option value="byAB">Sort by A-B</option>
         <option value="byBA">Sort B-A</option>
         <option value="by12">Sort 1-2</option>
