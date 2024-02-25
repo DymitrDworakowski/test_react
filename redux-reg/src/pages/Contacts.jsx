@@ -13,6 +13,7 @@ import 'react-calendar/dist/Calendar.css';
 
 import { fetchContacts } from "../redux/contacts/operations";
 import { selectIsLoading } from "../redux/selectors";
+import Loader from "../components/Loader/Loader";
 
 export default function Tasks() {
   const dispatch = useDispatch();
@@ -32,7 +33,7 @@ export default function Tasks() {
       <h2>My Contacts</h2>
       <div className={css.div_contact}>
         <Filter />
-        {isLoading && <b>Request in progress...</b>}
+        {isLoading &&  <Loader/>}
         <ContactsList />
       </div>
       <div className="div_calendar">
