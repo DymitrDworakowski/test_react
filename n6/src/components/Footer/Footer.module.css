@@ -1,0 +1,23 @@
+.footer_container {
+  background-color: #f0f0f0;
+  padding: 20px;
+  text-align: center;
+  margin-top: 50px;
+}
+
+.footer_title {
+  font-size: 24px;
+  color: #333;
+}
+
+.developer_info {
+  margin-top: 20px;
+  font-size: 16px;
+  color: #666;
+}
+
+.linkedin_icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+}

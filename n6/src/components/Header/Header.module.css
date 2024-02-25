@@ -1,41 +1,36 @@
+body {
+  display: block;
+  margin: 0 100px;
+}
 .nav {
-  display: flex;
-  justify-content: flex-start;
-  align-items: baseline;
-  background-color: floralwhite;
-  border: 2px solid black;
-  padding: 10px;
-  gap: 5px;
+  background-color: #f0f0f0;
+  padding: 20px;
+  text-align: center;
 }
+
 .logo {
-  margin-right: 60px;
+  margin-right: auto; /* Зсуває логотип вліво */
 }
 
-.home {
+.nav-item {
   background-color: wheat;
   border: 2px solid black;
-  align-self: center;
   display: flex;
   justify-content: center;
   align-items: center;
   width: 80px;
   height: 40px;
-}
-.home:active {
-  background-color: sienna;
+  text-decoration: none;
   color: black;
+  border-radius: 8px; /* Закруглює кути елемента */
+  transition: background-color 0.3s; /* Додає плавну анімацію зміни кольору при наведенні */
 }
 
-.movies:active {
-  background-color: blueviolet;
+.nav-item:hover {
+  background-color: lightgray; /* Змінює колір при наведенні */
 }
-.movies {
-  background-color: wheat;
-  border: 2px solid black;
-  align-self: center;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 80px;
-  height: 40px;
+
+.nav-item:active {
+  background-color: sienna; /* Змінює колір при натисканні */
+  color: black;
 }
