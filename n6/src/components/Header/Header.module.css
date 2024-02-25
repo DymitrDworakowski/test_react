@@ -7,17 +7,23 @@ body {
   padding: 20px;
   text-align: center;
 }
-
+.head_buttons {
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+}
 .logo {
-  margin-right: auto; /* Зсуває логотип вліво */
+  width: 100px;
+  height: 100px;
+  margin-right: 10px;
 }
 
 .nav-item {
-  background-color: wheat;
   border: 2px solid black;
   display: flex;
   justify-content: center;
   align-items: center;
+  gap: 10px;
   width: 80px;
   height: 40px;
   text-decoration: none;
@@ -26,11 +32,24 @@ body {
   transition: background-color 0.3s; /* Додає плавну анімацію зміни кольору при наведенні */
 }
 
-.nav-item:hover {
-  background-color: lightgray; /* Змінює колір при наведенні */
+.home,
+.movies {
+  margin: 5px;
+  padding: 10px;
+  text-decoration: none;
+  color: black;
+  background-color: #fff; /* Білий */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Додає тінь */
 }
 
-.nav-item:active {
-  background-color: sienna; /* Змінює колір при натисканні */
+.home:hover,
+.movies:hover {
+  color: black;
+  text-decoration: none;
+  background-color: lightgray; /* Світло-сірий */
+}
+
+.home:active,
+.movies:active {
   color: black;
 }
