@@ -64,6 +64,8 @@ a {
   color: black;
 }
 
-a:hover {
-  text-decoration: underline; /* Підкреслює посилання при наведенні курсора */
+li:hover {
+  transform: scale(1.05); /* Збільшує розмір елементу при наведенні */
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1), 0 6px 6px rgba(0, 0, 0, 0.1); /* Додає тінь */
+  text-decoration: none; /* Підкреслює посилання при наведенні курсора */
 }
