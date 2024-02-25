@@ -17,7 +17,6 @@
   font-size: 20px;
 }
 
-
 .film {
   display: flex;
   flex-direction: column;
@@ -25,7 +24,7 @@
   width: 300px;
   height: auto;
 }
-.film:hover{
+.film:hover {
   transform: scale(1.1);
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
   cursor: pointer;
@@ -36,7 +35,6 @@
   padding: 10px;
   background-color: #3f51b5;
   color: #fff;
-  
 }
 
 .img {
@@ -46,5 +44,4 @@
   height: 100%;
   border-radius: 10px;
   margin: 10px;
-  
 }

@@ -49,14 +49,14 @@ const Movies = () => {
   // useEffect: Цей ефект викликається при зміні query або функції getByName.
   // Якщо значення query не порожнє, він викликає функцію getByName.
   useEffect(() => {
-    if(searchFilms.length > 0){
+    if (searchFilms.length > 0) {
       return;
     } else {
       if (query) {
         getByName();
       }
     }
-  }, [query, getByName, searchFilms]);
+  }, [query, getByName, searchFilms, page]);
   console.log(query);
   // onSubmit: Ця функція викликається при відправці форми пошуку.
   // Вона перевіряє, чи не порожній введений текст та встановлює його в якості значення query.
@@ -85,7 +85,7 @@ const Movies = () => {
           name="searchText"
           type="text"
           autoComplete="off"
-          defaultValue=""
+          defaultValue={query}
           placeholder="Search movies"
         />
         <button type="submit" className={css.button}>
@@ -96,7 +96,7 @@ const Movies = () => {
       {searchFilms.length > 0 && (
         <ul className={css.movies}>
           {searchFilms.map(({ id, title, release_date, backdrop_path }) => (
-            <li className={css.movie} key={id}>
+            <li key={id} className={css.movie}>
               <Link to={`/movies/${id}`} state={{ from: location }}>
                 <h3>{title}</h3>
                 <img
