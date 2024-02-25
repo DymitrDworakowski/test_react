@@ -1,9 +1,9 @@
 import css from "./ContactForm.module.css";
-
+import Modal from "@mui/material/Modal";
 import { useDispatch } from "react-redux";
 import { addContact } from "../../redux/contacts/operations";
 
-const ContactForm = () => {
+const ContactForm = ({ openAdd, handleCloseAdd }) => {
   const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
@@ -18,38 +18,46 @@ const ContactForm = () => {
   };
 
   return (
-    <div className={css.div_form}>
-      <form className={css.form} onSubmit={handleSubmit}>
-        <p>Name</p>
-        <input
-          className={css.input}
-          type="text"
-          name="name"
-          required
-          placeholder="Name"
-        />
-        <p>Email</p>
-        <input
-          className={css.input}
-          type="email"
-          name="email"
-          required
-          placeholder="Email"
-        />
-        <p>Number</p>
-        <input
-          className={css.input}
-          type="tel"
-          name="phone"
-          required
-          placeholder="phone"
-        />
+    <Modal
+      open={openAdd}
+      onClose={handleCloseAdd}
+      aria-labelledby="modal-modal-title"
+      aria-describedby="modal-modal-description"
+      className={css.modalOverlayAdd}
+    >
+      <div className={css.div_form}>
+        <form className={css.form} onSubmit={handleSubmit}>
+          <p>Name</p>
+          <input
+            className={css.input}
+            type="text"
+            name="name"
+            required
+            placeholder="Name"
+          />
+          <p>Email</p>
+          <input
+            className={css.input}
+            type="email"
+            name="email"
+            required
+            placeholder="Email"
+          />
+          <p>Number</p>
+          <input
+            className={css.input}
+            type="tel"
+            name="phone"
+            required
+            placeholder="phone"
+          />
 
-        <button type="submit" className={css.form_button}>
-          Add contact
-        </button>
-      </form>
-    </div>
+          <button type="submit" className={css.form_button}>
+            Add contact
+          </button>
+        </form>
+      </div>
+    </Modal>
   );
 };
 

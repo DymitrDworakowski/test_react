@@ -2,23 +2,27 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  transform: rotate(-32deg) skew(10deg);
 }
 h1,
 h2 {
   display: flex;
   justify-content: center;
   font-family: Caveat, sans-serif; /* Шрифт тексту */
-  transform: perspective(80px) rotateY(5deg) rotate(-10deg) skew(10deg);
 }
 section {
-  display: grid;
-  padding: 50px;
-  justify-content: center;
-  /* background-image: url('../img/phonebook_back.jpg'); */
-  background-color: bisque;
-  /* background-size: contain;
-  background-position: top center;
+  background-image: url(../../img/img3.jpg);
   background-repeat: no-repeat;
-  background-attachment: scroll; */
+  padding: 150px;
+  display: grid;
+  height: 100%;
+  justify-content: center;
+  background-size: contain;
+  background-attachment: fixed; /* Зафіксоване фонове зображення */
 }
-
+.div_calendar {
+  font-family: Caveat, sans-serif; /* Шрифт тексту */
+  padding-left: 500px;
+  margin-top: 100px;
+  transform: rotate(-32deg) skew(10deg);
+}

@@ -5,6 +5,9 @@ import LoadingButton from "@mui/lab/LoadingButton";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import DeleteIcon from "@mui/icons-material/Delete";
+import Modal from "@mui/material/Modal";
+
+import Filter from "../Filter/Filter";
 
 import { selectIsLoading } from "../../redux/selectors";
 
@@ -19,7 +22,7 @@ import { selectFilterContacts } from "../../redux/selectors";
 import { fetchContacts } from "../../redux/contacts/operations";
 import ContactModal from "../ContactModal/ContactModal";
 
-const ContactsList = () => {
+const ContactsList = ({ open, handleCloseM }) => {
   const dispatch = useDispatch();
   const contacts = useSelector(selectFilterContacts);
   const [openId, setOpenId] = useState(null);
@@ -89,62 +92,71 @@ const ContactsList = () => {
   }, [dispatch, handleDelete]);
 
   return (
-    <div className={css.div_list}>
-      <Select
-        labelId="demo-simple-select-label"
-        id="demo-simple-select"
-        value={sortBy}
-        onChange={handleChange}
-      >
-        <MenuItem value="none">...</MenuItem>
-        <MenuItem value="byAB">Sort name by A-B</MenuItem>
-        <MenuItem value="byBA">Sort name B-A</MenuItem>
-        <MenuItem value="byFavorite">Sort favorite</MenuItem>
-      </Select>
-      {sortedContacts.map(({ name, email, phone, _id, favorite }, index) => (
-        <ul className={css.list} key={`${_id}-${index}`}>
-          <li>Name: {name}</li>
-          <li>Phone: {phone}</li>
-          <li>E-mail: {email}</li>
-          <span
-            className={`${css.favorites} ${
-              favorite ? css.isTrue : css.isFalse
-            }`}
-          ></span>
-          <input
-            className={css.checked}
-            type="checkbox"
-            checked={favorite}
-            onChange={(e) => handleChangeFavorite(_id, e.target.checked)}
-          />
-          <Button
-            variant="contained"
-            type="edit"
-            onClick={() => handleOpen(_id)}
-          >
-            Edit
-          </Button>
-          <LoadingButton
-            size="small"
-            onClick={() => handleDelete(_id)}
-            loadingPosition="end"
-            variant="outlined"
-            loading={isLoading}
-            endIcon={<DeleteIcon />}
-          >
-            <span>Delete</span>
-          </LoadingButton>
-          <ContactModal
-            open={openId === _id}
-            handleClose={handleClose}
-            handleSubmit={handleSubmit}
-            name={name}
-            email={email}
-            phone={phone}
-          />
-        </ul>
-      ))}
-    </div>
+    <Modal
+      open={open}
+      onClose={handleCloseM}
+      aria-labelledby="modal-modal-title"
+      aria-describedby="modal-modal-description"
+      className={css.modalOverlayList}
+    >
+      <div className={css.div_list}>
+        <Filter />
+        <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          value={sortBy}
+          onChange={handleChange}
+        >
+          <MenuItem value="none">...</MenuItem>
+          <MenuItem value="byAB">Sort name by A-B</MenuItem>
+          <MenuItem value="byBA">Sort name B-A</MenuItem>
+          <MenuItem value="byFavorite">Sort favorite</MenuItem>
+        </Select>
+        {sortedContacts.map(({ name, email, phone, _id, favorite }, index) => (
+          <ul className={css.list} key={`${_id}-${index}`}>
+            <li>Name: {name}</li>
+            <li>Phone: {phone}</li>
+            <li>E-mail: {email}</li>
+            <span
+              className={`${css.favorites} ${
+                favorite ? css.isTrue : css.isFalse
+              }`}
+            ></span>
+            <input
+              className={css.checked}
+              type="checkbox"
+              checked={favorite}
+              onChange={(e) => handleChangeFavorite(_id, e.target.checked)}
+            />
+            <Button
+              variant="contained"
+              type="edit"
+              onClick={() => handleOpen(_id)}
+            >
+              Edit
+            </Button>
+            <LoadingButton
+              size="small"
+              onClick={() => handleDelete(_id)}
+              loadingPosition="end"
+              variant="outlined"
+              loading={isLoading}
+              endIcon={<DeleteIcon />}
+            >
+              <span>Delete</span>
+            </LoadingButton>
+            <ContactModal
+              open={openId === _id}
+              handleClose={handleClose}
+              handleSubmit={handleSubmit}
+              name={name}
+              email={email}
+              phone={phone}
+            />
+          </ul>
+        ))}
+      </div>
+    </Modal>
   );
 };
 

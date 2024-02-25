@@ -1,10 +1,20 @@
-.div_form {
-  height: 400px;
+.modalOverlayAdd {
   display: flex;
   justify-content: center;
-  border: 2px solid black;
+  align-items: center;
+  background-color: rgba(63, 59, 59, 0.5); /* Прозорий білий фон */
 }
+
+.div_form {
+  overflow: auto;
+  background-color: rgba(255, 255, 255, 0.5); /* Прозорий білий фон */
+  border-radius: 8px; /* Радіус кутів вікна */
+  padding: 20px; /* Відступи всередині вікна */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Тінь вікна */
+}
+
 .form {
+  padding: px;
 }
 
 input {

@@ -1,10 +1,19 @@
+.modalOverlayList {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(63, 59, 59, 0.5); /* Прозорий білий фон */
+}
+
 .div_list {
-  /* transform: perspective(90px) rotateY(5deg) rotate(-10deg) skew(8deg); */
-
-  width: 900px;
-  height: 500px;
-
+  width: 80%; /* Ширина вікна */
+  max-width: 900px; /* Максимальна ширина вікна */
+  max-height: 80%; /* Максимальна висота вікна */
   overflow: auto;
+  background-color: rgba(255, 255, 255, 0.5); /* Прозорий білий фон */
+  border-radius: 8px; /* Радіус кутів вікна */
+  padding: 20px; /* Відступи всередині вікна */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Тінь вікна */
 }
 
 .list {
@@ -13,7 +22,6 @@
   padding: 0;
   border: 1px solid black;
 }
-
 li {
   list-style-type: none;
 
