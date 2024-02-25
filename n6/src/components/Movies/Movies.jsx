@@ -33,7 +33,7 @@ const Movies = () => {
 
       if (response.length > 0) {
         // Використовуйте дефолтний стан, якщо стан movies порожній
-        setSearchFilms((prevFilms) => [...prevFilms, ...response]);
+        setSearchFilms((prevParams) => [...prevParams, ...response]);
 
         setHasMoreMovies(true);
       } else {
@@ -49,14 +49,10 @@ const Movies = () => {
   // useEffect: Цей ефект викликається при зміні query або функції getByName.
   // Якщо значення query не порожнє, він викликає функцію getByName.
   useEffect(() => {
-    if (searchFilms.length > 0) {
-      return;
-    } else {
-      if (query) {
-        getByName();
-      }
+    if (query) {
+      getByName();
     }
-  }, [query, getByName, searchFilms, page]);
+  }, [query, getByName, page]);
   console.log(query);
   // onSubmit: Ця функція викликається при відправці форми пошуку.
   // Вона перевіряє, чи не порожній введений текст та встановлює його в якості значення query.
@@ -85,7 +81,6 @@ const Movies = () => {
           name="searchText"
           type="text"
           autoComplete="off"
-          defaultValue={query}
           placeholder="Search movies"
         />
         <button type="submit" className={css.button}>
