@@ -76,22 +76,11 @@ const ContactsList = () => {
       return [...contacts].sort((a, b) => a.name.localeCompare(b.name)); // Сортування A-B
     } else if (sortBy === "byBA") {
       return [...contacts].sort((a, b) => b.name.localeCompare(a.name)); // Сортування B-A
-    } else if (sortBy === "by12") {
-      return [...contacts].sort((a, b) => a.phone - b.phone); // Сортування за порядком 1-2 (за id)
+    } else if (sortBy === "byFavorite") {
+      return [...contacts].sort((a, b) => b.favorite - a.favorite); // Сортування за порядком 1-2 (за id)
     } else {
       return contacts; // Повернення незміненого масиву контактів, якщо сортування не вибрано
     }
-
-    // switch (sortBy) {
-    //   case "byAB":
-    //     return [...contacts].sort((a, b) => a.name.localeCompare(b.name)); // Сортування A-B
-    //   case "byBA":
-    //     return [...contacts].sort((a, b) => b.name.localeCompare(a.name)); // Сортування B-A
-    //   case "by12":
-    //     return [...contacts].sort((a, b) => a.id - b.id); // Сортування за порядком 1-2 (за id)
-    //   default:
-    //     return contacts; // Повернення незміненого масиву контактів, якщо сортування не вибрано
-    // }
   };
 
   const sortedContacts = sortContacts(contacts);
@@ -106,13 +95,12 @@ const ContactsList = () => {
         labelId="demo-simple-select-label"
         id="demo-simple-select"
         value={sortBy}
-        label="Sort by..."
         onChange={handleChange}
       >
         <MenuItem value="none">...</MenuItem>
         <MenuItem value="byAB">Sort name by A-B</MenuItem>
         <MenuItem value="byBA">Sort name B-A</MenuItem>
-        <MenuItem value="by12">Sort phone number</MenuItem>
+        <MenuItem value="byFavorite">Sort favorite</MenuItem>
       </Select>
       {sortedContacts.map(({ name, email, phone, _id, favorite }, index) => (
         <ul className={css.list} key={`${_id}-${index}`}>
