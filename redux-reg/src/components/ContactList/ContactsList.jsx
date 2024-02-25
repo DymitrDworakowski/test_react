@@ -82,7 +82,6 @@ const ContactsList = () => {
       return contacts; // Повернення незміненого масиву контактів, якщо сортування не вибрано
     }
   };
-
   const sortedContacts = sortContacts(contacts);
 
   useEffect(() => {
