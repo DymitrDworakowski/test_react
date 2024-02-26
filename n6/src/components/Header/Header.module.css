@@ -1,6 +1,6 @@
 body {
   display: block;
-  margin: 0 100px;
+ 
 }
 a {
   text-decoration: none;
@@ -10,19 +10,24 @@ a {
   background-color: #f0f0f0;
   padding: 20px;
   text-align: center;
+  width: 100%;
+  display: inline-block;
 }
 .head_buttons {
+  
   display: flex;
   justify-content: center;
   align-items: baseline;
 }
 .logo {
+  
   width: 100px;
   height: 100px;
   margin-right: 10px;
 }
 
 .nav-item {
+  
   border: 2px solid black;
   display: flex;
   justify-content: center;

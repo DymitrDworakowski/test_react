@@ -31,7 +31,7 @@ const Home = () => {
 
   const http = "https://image.tmdb.org/t/p/w300";
   return (
-    <div>
+    <div className={css.container} >
       <ul className={css.film_container}>
         {isLoading && <Loader />}
         {error && <p>Error: {error.message}</p>}

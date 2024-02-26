@@ -1,5 +1,10 @@
+.container {
+ 
+}
+
 .film_container {
   display: grid;
+  
   max-width: calc(100vw - 48px);
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
   gap: 40px;
@@ -12,7 +17,11 @@
   margin: 10px 0;
   font-size: 20px;
   text-align: center; /* Вирівнює заголовки по центру */
+  overflow: hidden;
+	position: relative;
+	height: 62px;
 }
+
 
 .film {
   display: flex;
