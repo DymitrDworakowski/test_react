@@ -2,24 +2,29 @@ import React, { useRef, useState, useEffect } from "react";
 import { Canvas, Rect, Circle } from "fabric";
 import Settings from "./Settings";
 import CanvasImage from "./CanvasImage";
-
+import Kosz from "../img/kosz.jpg";
 function Fabric() {
   const fabricRef = useRef(null);
   const [canvas, setCanvas] = useState(null);
+  const initialized = useRef(false);
 
   useEffect(() => {
-    if (fabricRef.current) {
+    if (!initialized.current && fabricRef.current) {
       const initCanvas = new Canvas(fabricRef.current, {
-        height: 400,
-        width: 600,
+        height: 200,
+        width: 200,
       });
-      initCanvas.backgroundColor = "lightgray";
+
+      // make canvas transparent so the wrapper div background (Kosz) shows
+      initCanvas.backgroundColor = "transparent";
       initCanvas.renderAll();
 
       setCanvas(initCanvas);
+      initialized.current = true;
 
       return () => {
         initCanvas.dispose();
+        initialized.current = false;
       };
     }
   }, []);
@@ -41,7 +46,7 @@ function Fabric() {
   function addCircle() {
     if (canvas) {
       const circle = new Circle({
-        left: 200,
+        left: 100,
         top: 50,
         fill: "blue",
         radius: 50,
@@ -62,11 +67,37 @@ function Fabric() {
         <Settings canvas={canvas} />
         <CanvasImage canvas={canvas} />
       </div>
-      <canvas
-        ref={fabricRef}
-        id="fabric-canvas"
-        style={{ border: "1px solid #000" }}
-      ></canvas>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          width: "100%",
+        }}
+      >
+        <div
+          style={{
+            backgroundImage: `url(${Kosz})`,
+            padding: "100px",
+            backgroundSize: "cover",
+          }}
+        >
+          <div>
+            {" "}
+            <canvas
+              ref={fabricRef}
+              id="fabric-canvas"
+              style={{
+                border: "1px solid black",
+                marginTop: "10px",
+                background: "transparent",
+                width: "200px",
+                height: "200px",
+              }}
+            ></canvas>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
